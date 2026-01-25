@@ -1,6 +1,15 @@
 import { API_BASE_URL } from '../config';
 
+/**
+ * Authentication service for user registration and login
+ */
 export const authService = {
+    /**
+     * Register a new user with zero-knowledge proof
+     * @param email - User's email address
+     * @param proof - Zero-knowledge authentication proof
+     * @returns Promise with registration response
+     */
     async register(email: string, proof: string) {
         const response = await fetch(`${API_BASE_URL}/auth/register`, {
             method: 'POST',
@@ -17,6 +26,13 @@ export const authService = {
 
         return response.json();
     },
+
+    /**
+     * Authenticate user with zero-knowledge proof
+     * @param username - User's username/email
+     * @param proof - Zero-knowledge authentication proof
+     * @returns Promise with login response including JWT token
+     */
 
     async login(username: string, proof: string) {
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
