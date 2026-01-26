@@ -10,6 +10,16 @@ router.post("/register", async (req, res) => {
     if (!username || !proof) {
       return res.status(400).json({
         error: "Username and proof are required",
+        details: "Both username and authentication proof must be provided for registration"
+      });
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(username)) {
+      return res.status(400).json({
+        error: "Invalid email format",
+        details: "Please provide a valid email address"
       });
     }
 
@@ -19,6 +29,7 @@ router.post("/register", async (req, res) => {
     if (!result) {
       return res.status(409).json({
         error: "User already exists",
+        details: "An account with this email address is already registered"
       });
     }
 
@@ -27,7 +38,11 @@ router.post("/register", async (req, res) => {
       user: result,
     });
   } catch (error) {
-    return res.status(500).json({ error: "Internal Server Error" });
+    console.error('[AUTH ERROR]', error);
+    return res.status(500).json({
+      error: "Internal Server Error",
+      details: "An unexpected error occurred during registration"
+    });
   }
 });
 
