@@ -1,28 +1,58 @@
 # Zero-Vault - Secure Password Management
 
-**Zero-Vault** is a high-security, zero-knowledge password manager designed for the modern web. Built with a focus on privacy and user experience, it ensures that sensitive data never leaves the client in an unencrypted state.
+**# Zero-Knowledge Password Vault - Sprint 1
 
----
+A secure, zero-knowledge password manager built with modern web technologies. This project implements client-side encryption, zero-knowledge authentication, and a beautiful user interface.
 
-## 🛠️ Frameworks & Technologies
+## 🚀 Features
 
-The project utilizes a robust and modern tech stack to provide security, speed, and a premium user experience.
+- **Zero-Knowledge Architecture**: Your master password never leaves your device
+- **Client-Side Encryption**: All vault data is encrypted before storage
+- **Modern UI/UX**: Built with React, TypeScript, and Framer Motion
+- **Cross-Device Sync**: Encrypted vault synchronization across devices
+- **Password Analytics**: Insights into password strength and security
+- **Auto-Lock**: Automatic vault locking after inactivity
+- **Panic Mode**: Emergency data wipe functionality
 
-### **Frontend**
-- **React.js & TypeScript**: For a type-safe, component-based user interface.
-- **Vite**: Ultra-fast development environment and build tool.
-- **Framer Motion**: Powering smooth, high-end micro-animations.
-- **Vanilla CSS**: Custom-crafted Design System featuring **Glassmorphism** and a premium "Dark Glass" aesthetic.
+## ⌨️ Keyboard Shortcuts
 
-### **Backend**
-- **Node.js & Express.js**: Scalable and efficient server-side logic.
-- **SQLite**: Reliable local data storage (Current Sprint).
-- **MongoDB**: Future-ready cloud synchronization (Integration in progress).
+Boost your productivity with these keyboard shortcuts:
 
-### **Security Core**
-- **Zero-Knowledge Proofs (ZKP)**: Authenticate without ever sending your actual password.
-- **AES-256 Encryption**: Industry-standard encryption for vault data.
-- **Diffie-Hellman**: Secure key exchange for establishing encrypted channels.
+- `Ctrl+K` - Search vault
+- `Ctrl+N` - Create new entry
+- `Ctrl+L` - Lock vault
+- `Ctrl+,` - Open settings
+
+## 🛠️ Technologies Used
+
+### Frontend
+- React 18 with TypeScript
+- Vite for blazing-fast builds
+- Framer Motion for smooth animations
+- Wouter for lightweight routing
+- Lucide React for beautiful icons
+
+### Backend
+- Node.js with Express
+- MongoDB for data persistence
+- JWT for authentication
+- Zero-knowledge proof verification
+
+## 📦 Project Structure
+
+```
+Frontend+Backend/
+├── zero-vault-sprint-1/     # React frontend
+│   ├── src/
+│   │   ├── components/      # Reusable UI components
+│   │   ├── pages/           # Page components
+│   │   ├── contexts/        # React contexts
+│   │   ├── services/        # API services
+│   │   └── utils/           # Utility functions
+│   └── package.json
+└── backend/
+    └── zero-knowledge/      # Express backend
+```
 
 ---
 
