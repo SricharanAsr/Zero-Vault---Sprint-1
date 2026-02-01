@@ -1,5 +1,10 @@
 # Project Changelog
 
+## February 1, 2026
+- Added comprehensive input validation for vault entries
+- Improved error messages for invalid inputs
+- Enhanced form field validation
+
 ## January 30, 2026
 - Improved vault encryption performance
 - Optimized client-side encryption algorithms
