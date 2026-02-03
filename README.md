@@ -1,94 +1,93 @@
 # Zero-Vault - Sprint 1 (50% Implementation)
 
-A secure, zero-knowledge password manager built with modern web technologies. This is the **Sprint 1 version** representing approximately 50% of the planned features, focusing on core functionality and foundational UI/UX.
+A secure, zero-knowledge password manager built with modern web technologies. This project contains both a **Backend** server and a **Frontend** web application.
 
-## 🎯 Sprint 1 Scope (50% Complete)
+---
 
-This version includes the essential features needed for a functional password vault:
+## 🚀 How to Run the Project (Step-by-Step)
 
-### ✅ Implemented Features
+Follow these steps exactly to get your project running whenever you open a new **Git Bash** terminal.
 
-#### Core Vault Functionality
-- **Secure Entry Management**: Add, edit, and delete password entries
-- **Category Organization**: Organize entries by categories (Work, Personal, Finance, Social, Entertainment, Shopping)
-- **Favorites System**: Mark important entries as favorites for quick access
-- **Search & Filter**: Real-time search across entries with category filtering
+### **Step 1: Open Git Bash and Navigate to Project**
+Every time you open a new Git Bash window, you start in your home folder. You **must** go to your project folder first:
 
-#### Security Features
-- **Password Strength Analysis**: Real-time strength indicators with color-coded feedback
-- **Breach Detection**: Identifies commonly compromised passwords
-- **Security Challenge**: Optional security question/answer for sensitive entries
-- **Auto-Lock Timer**: Configurable inactivity timeout (5-60 minutes)
-- **Clipboard Auto-Clear**: Automatic clipboard clearing after password copy (10-120 seconds)
+```bash
+cd "d:/sricharan-A/amrita/sem 6/Software engineering/Sprint_1/final/Frontend+Backend"
+```
 
-#### User Experience
-- **Dark Glass UI**: Premium glassmorphism design with backdrop blur effects
-- **Responsive Layout**: Fully responsive design for desktop and mobile
-- **Smooth Animations**: Framer Motion powered transitions and micro-interactions
-- **Password Generator**: Built-in strong password generator with customizable options
-- **Keyboard Shortcuts**: 
-  - `Ctrl+K` - Search vault
-  - `Ctrl+N` - New entry
-  - `Ctrl+L` - Lock vault
-  - `Ctrl+,` - Settings
+---
 
-## 🚀 Technology Stack
+### **Step 2: Start the Backend (Server)**
+You must have the backend running for the app to work. 
 
-- **Frontend**: React 18 + TypeScript, Vite, Tailwind CSS, Framer Motion, Lucide Icons
-- **Backend**: Node.js, Express, SQLite (with MongoDB migration support)
-- **Security**: Zero-Knowledge Proofs, PBKDF2 Hashing, MFA implementation
-
-## 📦 Installation & Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/SricharanAsr/Zero-Vault---Sprint-1.git
-   cd Zero-Vault---Sprint-1
-   ```
-
-2. **Backend Setup**
+1. **Go to the backend folder:**
    ```bash
    cd backend/zero-knowledge
+   ```
+2. **Install dependencies (only needed the first time):**
+   ```bash
    npm install
+   ```
+3. **Start the server:**
+   ```bash
    npm start
    ```
+*⚠️ Keep this terminal window open!*
 
-3. **Frontend Setup**
-   *(Open a new terminal window)*
+---
+
+### **Step 3: Start the Frontend (App)**
+1. **Open a SECOND Git Bash window.**
+2. **Navigate to the project root again:**
+   ```bash
+   cd "d:/sricharan-A/amrita/sem 6/Software engineering/Sprint_1/final/Frontend+Backend"
+   ```
+3. **Go to the frontend folder:**
    ```bash
    cd zero-vault-sprint-1/zero-vault-sprint-1
+   ```
+4. **Install dependencies (only needed the first time):**
+   ```bash
    npm install
+   ```
+5. **Start the app:**
+   ```bash
    npm run dev
    ```
 
-4. **Access the Application**
-   - Frontend: `http://localhost:5173` (default Vite port)
-   - Backend: `http://localhost:5000` (typical server port)
+---
 
-## 🔮 Planned for Sprint 2 (Remaining 50%)
+### **Step 4: Open in Your Browser**
+Once both terminals are running, open your browser and go to:
+👉 **[http://localhost:5173](http://localhost:5173)**
 
-The following features are planned for the next iteration:
+---
 
-- **Vault Insights Dashboard**: Security audit with compromised/weak/reused password detection
-- **Password History**: Track last 5 password changes per entry
-- **Import/Export**: JSON-based vault backup and restore
-- **Extension Mockup**: Browser extension preview page
-- **Virtual Scrolling**: Performance optimization for large vaults (100+ entries)
-- **Enhanced Security**: Additional encryption options and 2FA preparation
+## 🛠️ How to Update your GitHub Repository
+When you make changes to your code and want to see them on GitHub, follow these 3 steps in Git Bash (make sure you are in the project root folder):
 
-## 📝 Current Limitations
+1. **Stage your changes:**
+   ```bash
+   git add .
+   ```
 
-As this is Sprint 1 (50% complete):
-- No data persistence beyond localStorage/local SQLite
-- No cloud sync (currently local-first)
-- Limited multi-vault support
+2. **Commit with a message:** (Describe what you changed)
+   ```bash
+   git commit -m "Update: added a new feature or fixed a bug"
+   ```
 
-## 🛡️ Security Note
+3. **Push to GitHub:**
+   ```bash
+   git push origin main
+   ```
 
-This is a **client-side focused** implementation with backend support. For production use, consider:
-- End-to-end encryption for all stored fields
-- Secure cloud backup with client-side keys
-- Biometric authentication integration
+---
+
+## 🎯 Sprint 1 Features
+- **Secure Vault**: Add, edit, and delete entries.
+- **Security**: Password strength analysis and auto-lock.
+- **Design**: Premium "Dark Glass" UI with Glassmorphism.
+- **Tech**: React, TypeScript, Node.js, and SQLite.
 
 ---
 
