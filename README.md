@@ -48,7 +48,7 @@ This version includes the essential features needed for a functional password va
 
 2. **Backend Setup**
    ```bash
-   cd backend
+   cd backend/zero-knowledge
    npm install
    npm start
    ```
