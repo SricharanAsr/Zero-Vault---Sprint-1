@@ -70,11 +70,18 @@ export default function Dashboard() {
     useEffect(() => {
         localStorage.setItem('vaultEntries', JSON.stringify(entries));
 
-        // Sync to backend (simple debounce could be added here in production)
-        if (entries.length > 0) {
+        // Sync to backend with a small delay to avoid spamming
+        const syncTimeout = setTimeout(() => {
+            console.log(`[SYNC] Attempting to sync ${entries.length} entries to backend...`);
             vaultService.upload(JSON.stringify(entries))
-                .catch(err => console.error("Background sync failed:", err));
-        }
+                .then(() => console.log("[SYNC] Backend sync successful"))
+                .catch(err => {
+                    console.error("[SYNC] Backend sync failed:", err);
+                    showToast('Cloud sync failed. Working in local mode.', 'error');
+                });
+        }, 1000);
+
+        return () => clearTimeout(syncTimeout);
     }, [entries]);
 
     const categories = ['all', ...Array.from(new Set(entries.map(e => e.category).filter(Boolean)))];

@@ -8,11 +8,15 @@ module.exports = {
 
       if (existingVault) {
         // Update
+        console.log(`[STORAGE] Updating vault for user: ${username}`);
         existingVault.encryptedVault = encryptedVault;
         await existingVault.save();
+        console.log(`[STORAGE] Vault updated successfully for user: ${username}`);
       } else {
         // Create
+        console.log(`[STORAGE] Creating new vault for user: ${username}`);
         await Vault.create({ username, encryptedVault });
+        console.log(`[STORAGE] Vault created successfully for user: ${username}`);
       }
     } catch (error) {
       console.error("Vault Save Error:", error);

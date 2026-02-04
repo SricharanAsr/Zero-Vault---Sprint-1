@@ -1,12 +1,12 @@
 import { useLocation } from 'wouter';
-import { Home, Settings, AlertOctagon, PieChart, Sun, Moon } from 'lucide-react';
+import { Home, Settings, AlertOctagon, PieChart, Sun, Moon, LogOut } from 'lucide-react';
 import { useAutoLock } from '../contexts/AutoLockContext';
 import { useToast } from '../contexts/ToastContext';
 import { useTheme } from '../contexts/ThemeContext';
 
 export default function Navigation() {
     const [location, setLocation] = useLocation();
-    const { panicLock } = useAutoLock();
+    const { panicLock, logout } = useAutoLock();
     const { showToast } = useToast();
     const { theme, toggleTheme } = useTheme();
 
@@ -20,6 +20,11 @@ export default function Navigation() {
     const handlePanicLock = () => {
         showToast('Emergency lock activated!', 'warning');
         panicLock();
+    };
+
+    const handleLogout = () => {
+        showToast('Logged out successfully', 'success');
+        logout();
     };
 
     return (
@@ -48,6 +53,15 @@ export default function Navigation() {
                     title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
                 >
                     {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                </button>
+
+                <button
+                    onClick={handleLogout}
+                    className="px-3 py-2 rounded-xl flex items-center gap-2 text-muted-foreground hover:bg-white/5 transition-all text-sm"
+                    title="Logout"
+                >
+                    <LogOut className="w-4 h-4" />
+                    <span className="font-medium hidden md:inline">Logout</span>
                 </button>
 
                 <button

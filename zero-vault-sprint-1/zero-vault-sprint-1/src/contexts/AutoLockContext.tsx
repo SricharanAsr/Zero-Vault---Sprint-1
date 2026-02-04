@@ -5,6 +5,7 @@ import { useLocation } from 'wouter';
 interface AutoLockContextType {
     lockVault: () => void;
     panicLock: () => void;
+    logout: () => void;
     autoLockMinutes: number;
     setAutoLockMinutes: (minutes: number) => void;
 }
@@ -69,8 +70,17 @@ export function AutoLockProvider({ children }: { children: ReactNode }) {
         setLocation('/');
     };
 
+    const logout = () => {
+        // Clear authentication and vault data
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('vaultEntries');
+
+        // Redirect to landing
+        setLocation('/');
+    };
+
     return (
-        <AutoLockContext.Provider value={{ lockVault, panicLock, autoLockMinutes, setAutoLockMinutes }}>
+        <AutoLockContext.Provider value={{ lockVault, panicLock, logout, autoLockMinutes, setAutoLockMinutes }}>
             {children}
         </AutoLockContext.Provider>
     );

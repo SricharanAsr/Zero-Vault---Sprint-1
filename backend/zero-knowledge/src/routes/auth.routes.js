@@ -69,4 +69,17 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/logout", async (req, res) => {
+  try {
+    const { username } = req.body || {};
+    console.log(`[AUTH ROUTE] Logout event for username: ${username || 'Unknown'}`);
+
+    return res.json({
+      message: "Logout successful",
+    });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
