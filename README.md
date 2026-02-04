@@ -1,30 +1,68 @@
-# Zero-Vault - Sprint 1 (50% Implementation)
+# Zero-Vault - Secure Password Management
 
-A secure, zero-knowledge password manager built with modern web technologies. This project contains both a **Backend** server and a **Frontend** web application.
+**Zero-Vault** is a high-security, zero-knowledge password manager designed for the modern web. Built with a focus on privacy and user experience, it ensures that sensitive data never leaves the client in an unencrypted state.
+
+---
+
+## 🛠️ Frameworks & Technologies
+
+The project utilizes a robust and modern tech stack to provide security, speed, and a premium user experience.
+
+### **Frontend**
+- **React.js & TypeScript**: For a type-safe, component-based user interface.
+- **Vite**: Ultra-fast development environment and build tool.
+- **Framer Motion**: Powering smooth, high-end micro-animations.
+- **Vanilla CSS**: Custom-crafted Design System featuring **Glassmorphism** and a premium "Dark Glass" aesthetic.
+
+### **Backend**
+- **Node.js & Express.js**: Scalable and efficient server-side logic.
+- **SQLite**: Reliable local data storage (Current Sprint).
+- **MongoDB**: Future-ready cloud synchronization (Integration in progress).
+
+### **Security Core**
+- **Zero-Knowledge Proofs (ZKP)**: Authenticate without ever sending your actual password.
+- **AES-256 Encryption**: Industry-standard encryption for vault data.
+- **Diffie-Hellman**: Secure key exchange for establishing encrypted channels.
+
+---
+
+## 🔄 Project Workflow
+
+How Zero-Vault keeps your data safe:
+
+1.  **Secure Registration**: During signup, a unique cryptographic secret is generated locally. Only the "proof" is stored on the server.
+2.  **Zero-Knowledge Login**: When you unlock your vault, the system verifies your identity through a mathematical challenge that doesn't reveal your password.
+3.  **Client-Side Encryption**: Your passwords are encrypted on your device *before* being saved to the database.
+4.  **Risk Engine**: A background service monitors for suspicious activity, brute-force attempts, and weak master passwords.
+
+---
+
+## 📅 Sprint 2 Roadmap (Planned)
+
+We are continuously evolving. Here is what's coming next:
+
+- [ ] **Multi-Factor Authentication (MFA)**: Adding TOTP (Google Authenticator) and Email OTP layers.
+- [ ] **Cloud Sync**: Full migration to MongoDB for seamless multi-device access.
+- [ ] **Security Audit Dashboard**: A dedicated UI to view login attempts and security health.
+- [ ] **Auto-Fill Extension**: A browser extension to bring Zero-Vault to every website.
 
 ---
 
 ## 🚀 How to Run the Project (Step-by-Step)
 
-Follow these steps exactly to get your project running whenever you open a new **Git Bash** terminal.
+Follow these steps exactly to get your project running.
 
 ### **Step 1: Open Git Bash and Navigate to Project**
-Every time you open a new Git Bash window, you start in your home folder. You **must** go to your project folder first:
-
 ```bash
 cd "d:/sricharan-A/amrita/sem 6/Software engineering/Sprint_1/final/Frontend+Backend"
 ```
 
----
-
 ### **Step 2: Start the Backend (Server)**
-You must have the backend running for the app to work. 
-
 1. **Go to the backend folder:**
    ```bash
    cd backend/zero-knowledge
    ```
-2. **Install dependencies (only needed the first time):**
+2. **Install dependencies:**
    ```bash
    npm install
    ```
@@ -34,11 +72,9 @@ You must have the backend running for the app to work.
    ```
 *⚠️ Keep this terminal window open!*
 
----
-
 ### **Step 3: Start the Frontend (App)**
 1. **Open a SECOND Git Bash window.**
-2. **Navigate to the project root again:**
+2. **Navigate to the project root:**
    ```bash
    cd "d:/sricharan-A/amrita/sem 6/Software engineering/Sprint_1/final/Frontend+Backend"
    ```
@@ -46,7 +82,7 @@ You must have the backend running for the app to work.
    ```bash
    cd zero-vault-sprint-1/zero-vault-sprint-1
    ```
-4. **Install dependencies (only needed the first time):**
+4. **Install dependencies:**
    ```bash
    npm install
    ```
@@ -55,39 +91,15 @@ You must have the backend running for the app to work.
    npm run dev
    ```
 
----
-
 ### **Step 4: Open in Your Browser**
-Once both terminals are running, open your browser and go to:
 👉 **[http://localhost:5173](http://localhost:5173)**
 
 ---
 
 ## 🛠️ How to Update your GitHub Repository
-When you make changes to your code and want to see them on GitHub, follow these 3 steps in Git Bash (make sure you are in the project root folder):
-
-1. **Stage your changes:**
-   ```bash
-   git add .
-   ```
-
-2. **Commit with a message:** (Describe what you changed)
-   ```bash
-   git commit -m "Update: added a new feature or fixed a bug"
-   ```
-
-3. **Push to GitHub:**
-   ```bash
-   git push origin main
-   ```
-
----
-
-## 🎯 Sprint 1 Features
-- **Secure Vault**: Add, edit, and delete entries.
-- **Security**: Password strength analysis and auto-lock.
-- **Design**: Premium "Dark Glass" UI with Glassmorphism.
-- **Tech**: React, TypeScript, Node.js, and SQLite.
+1. **Stage changes:** `git add .`
+2. **Commit:** `git commit -m "Your message here"`
+3. **Push:** `git push origin main`
 
 ---
 
