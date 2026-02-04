@@ -41,28 +41,7 @@ This version includes the essential features needed for a functional password va
 - **Wouter**: Lightweight routing
 - **Lucide React**: Modern icon library
 
-## 📦 Installation & Setup
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Guru006-Dev/Zero-vault.git
-   cd Zero-vault
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Run development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
 
 ## 🔮 Planned for Sprint 2 (Remaining 50%)
 
