@@ -70,13 +70,23 @@ export default function Dashboard() {
     useEffect(() => {
         localStorage.setItem('vaultEntries', JSON.stringify(entries));
 
+        // Only sync to backend if user is logged in (has auth token)
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            console.log('[SYNC] Skipping backend sync - user not logged in');
+            return;
+        }
+
         // Sync to backend with a small delay to avoid spamming
         const syncTimeout = setTimeout(() => {
             console.log(`[SYNC] Attempting to sync ${entries.length} entries to backend...`);
             vaultService.upload(JSON.stringify(entries))
-                .then(() => console.log("[SYNC] Backend sync successful"))
+                .then(() => {
+                    console.log("[SYNC] ✅ Backend sync successful");
+                    showToast('Data synced to cloud', 'success');
+                })
                 .catch(err => {
-                    console.error("[SYNC] Backend sync failed:", err);
+                    console.error("[SYNC] ❌ Backend sync failed:", err);
                     showToast('Cloud sync failed. Working in local mode.', 'error');
                 });
         }, 1000);
