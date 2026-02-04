@@ -63,24 +63,30 @@ function App() {
         <ThemeProvider>
           <AutoLockProvider>
             <AnimatePresence mode="wait">
-              <Switch location={location} key={location}>
+              <Switch>
                 <Route path="/" component={Landing} />
                 <Route path="/register" component={Register} />
                 <Route path="/unlock" component={Unlock} />
                 <Route path="/dashboard">
-                  <Dashboard />
-                  <Navigation />
+                  <>
+                    <Dashboard />
+                    <Navigation />
+                  </>
                 </Route>
                 <Route path="/settings">
                   <PageTransition>
-                    <Settings />
-                    <Navigation />
+                    <>
+                      <Settings />
+                      <Navigation />
+                    </>
                   </PageTransition>
                 </Route>
                 <Route path="/insights">
                   <PageTransition>
-                    <Insights />
-                    <Navigation />
+                    <>
+                      <Insights />
+                      <Navigation />
+                    </>
                   </PageTransition>
                 </Route>
                 <Route>

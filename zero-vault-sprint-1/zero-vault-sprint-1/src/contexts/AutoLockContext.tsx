@@ -14,7 +14,10 @@ const AutoLockContext = createContext<AutoLockContextType | undefined>(undefined
 
 export function AutoLockProvider({ children }: { children: ReactNode }) {
     const [, setLocation] = useLocation();
-    const [autoLockMinutes, setAutoLockMinutes] = useState(15);
+    const [autoLockMinutes, setAutoLockMinutes] = useState(() => {
+        const saved = localStorage.getItem('autoLockMinutes');
+        return saved ? parseInt(saved) : 15;
+    });
     const [lastActivity, setLastActivity] = useState(Date.now());
 
     // Track user activity

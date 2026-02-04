@@ -11,8 +11,13 @@ export default function Settings() {
     // Load settings from localStorage
     const [clipboardClearDelay, setClipboardClearDelay] = useState(() => {
         const saved = localStorage.getItem('clipboardClearDelay');
-        return saved ? parseInt(saved) : 30;
+        const parsed = saved ? parseInt(saved) : 30;
+        return isNaN(parsed) ? 30 : parsed;
     });
+
+    useEffect(() => {
+        console.log('[SETTINGS] Component mounted');
+    }, []);
 
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [isSyncing, setIsSyncing] = useState(false);
@@ -21,7 +26,7 @@ export default function Settings() {
 
 
     // Time until auto-lock (mock calculation)
-    const [timeUntilLock, setTimeUntilLock] = useState(autoLockMinutes * 60);
+    const [timeUntilLock, setTimeUntilLock] = useState(() => (autoLockMinutes || 15) * 60);
 
     // Persist settings to localStorage
     useEffect(() => {
@@ -38,7 +43,8 @@ export default function Settings() {
     useEffect(() => {
         const interval = setInterval(() => {
             setTimeUntilLock(prev => {
-                if (prev <= 1) return autoLockMinutes * 60;
+                const currentLimit = (autoLockMinutes || 15) * 60;
+                if (prev <= 1 || prev > currentLimit) return currentLimit;
                 return prev - 1;
             });
         }, 1000);
