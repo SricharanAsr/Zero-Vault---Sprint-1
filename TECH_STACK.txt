@@ -1,0 +1,62 @@
+POST MAN - API testing tool
+TECH STACK :
+Node.js – runtime to execute JavaScript on the server
+Express.js – to build REST APIs
+MongoDB (Mongoose) – Persistent storage for users and vault data
+React (Vite) – Frontend framework and build tool
+Tailwind CSS – Styling framework
+Framer Motion – Micro-animations and transitions
+Lucide React – Icon library
+Wouter – Light-weight routing for React
+
+BACKEND COMPONENTS :
+1.app.js
+* Starts the server
+* Connects all routes and middleware
+* Connects to MongoDB database
+* Listens on port `3000`
+
+2. Routes (src/routes/)
+Routes decide which URL does what.
+a) auth.routes.js- User authentication
+* Accepts registration and login requests
+* Validates user identity via proofs
+* Generates JWT token for valid logins
+* Handles logout events
+
+b) vault.routes.js- Encrypted vault handling
+* Upload encrypted vault data
+* Fetch encrypted vault data for the authenticated owner
+* Log debug info for payload size and ownership
+
+3. Middleware (src/middleware/)
+Middleware runs before routes.
+a) auth.middleware.js- Token validation
+* Reads `Authorization` header
+* Decodes and verifies JWT token
+* Attaches user info to request object
+
+b) error.middleware.js- Error handling
+* Catches server-side errors
+* Sends standardized JSON error responses
+* Prevents server crashes on unhandled exceptions
+
+4. Models (src/models/)
+Defines the structure of data in MongoDB.
+a) user.model.js- User schema
+* Stores username (email) and authentication proof
+b) vault.model.js- Vault schema
+* Stores username and encrypted vault string
+
+5. Services (src/services/)
+Services handle business logic.
+auth.service.js- Authentication logic
+* Handles user registration logic
+* Verifies login credentials/proofs
+
+6. Storage (src/storage/)
+Abstraction layer for data persistence.
+memory.store.js- Vault storage operations
+* Interface for saving and retrieving vault data from MongoDB
+
+CLOUD DATABASE : MongoDB Atlas (configured via .env)

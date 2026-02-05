@@ -80,49 +80,72 @@ We are continuously evolving. Here is what's coming next:
 
 ## 🚀 How to Run the Project (Step-by-Step)
 
-Follow these steps exactly to get your project running.
+Follow these steps exactly to get your project running from zero to hero.
 
-### **Step 1: Open Git Bash and Navigate to Project**
+### **1. Prerequisites**
+Ensure you have the following installed on your system:
+- [Node.js](https://nodejs.org/) (Latest LTS version)
+- [Git](https://git-scm.com/)
+- [MongoDB Community Server](https://www.mongodb.com/try/download/community)
+- [MongoDB Compass](https://www.mongodb.com/try/download/compass) (Graphical Interface for MongoDB)
+
+### **2. Clone the Repository**
+> [!TIP]
+> **Permission Denied Error?** If you see "Permission denied", it's because you are at the system root (`/`). Navigate to a folder you own (like `Documents` or your D: drive) using `cd` before cloning.
+>
+> **Already Exists Error?** If you see "already exists and is not an empty directory", it means you've already cloned it! Just skip to the `cd` command below.
+
+Open your terminal (Git Bash, Command Prompt, or PowerShell) and run:
 ```bash
-cd "d:/sricharan-A/amrita/sem 6/Software engineering/Sprint_1/final/Frontend+Backend"
+git clone https://github.com/SricharanAsr/Zero-Vault---Sprint-1.git
+cd Zero-Vault---Sprint-1
 ```
 
-### **Step 2: Start the Backend (Server)**
-1. **Go to the backend folder:**
-   ```bash
-   cd backend/zero-knowledge
-   ```
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-3. **Start the server:**
-   ```bash
-   npm start
-   ```
-*⚠️ Keep this terminal window open!*
+### **3. Start the Backend (Server)**
+1.  **Navigate to the backend folder:**
+    ```bash
+    cd backend/zero-knowledge
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Setup Environment Variables:**
+    Ensure you have a `.env` file in `backend/zero-knowledge/` with the following:
+    ```env
+    MONGO_URI=mongodb://localhost:27017/zero-knowledge
+    JWT_SECRET=super-secret-key-change-this-in-production
+    ```
+4.  **Launch the Server:**
+    ```bash
+    npm start
+    ```
+    *Keep this terminal window open!*
 
-### **Step 3: Start the Frontend (App)**
-1. **Open a SECOND Git Bash window.**
-2. **Navigate to the project root:**
-   ```bash
-   cd "d:/sricharan-A/amrita/sem 6/Software engineering/Sprint_1/final/Frontend+Backend"
-   ```
-3. **Go to the frontend folder:**
-   ```bash
-   cd zero-vault-sprint-1/zero-vault-sprint-1
-   ```
-4. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-5. **Start the app:**
-   ```bash
-   npm run dev
-   ```
+### **4. Start the Frontend (App)**
+1.  **Open a SECOND terminal window.**
+2.  **Navigate to the cloned project folder:**
+    ```bash
+    cd Zero-Vault---Sprint-1
+    ```
+3.  **Go to the frontend folder (Note: it is nested twice):**
+    ```bash
+    cd zero-vault-sprint-1/zero-vault-sprint-1
+    ```
+4.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+5.  **Start the development server:**
+    ```bash
+    npm run dev
+    ```
+6.  **Open in Your Browser:** 👉 **[http://localhost:5173](http://localhost:5173)**
 
-### **Step 4: Open in Your Browser**
-👉 **[http://localhost:5173](http://localhost:5173)**
+### **5. Verify Data in MongoDB Compass**
+1.  Open **MongoDB Compass** and click **Connect** (default `mongodb://localhost:27017`).
+2.  In the Zero-Vault app, create a new account or save an entry.
+3.  In Compass, refresh the list. You should see a `zero-knowledge` database with `users` and `vaults` collections!
 
 ---
 
