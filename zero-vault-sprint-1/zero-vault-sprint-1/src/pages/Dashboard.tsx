@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Plus, Star, Copy, Eye, Trash2, Edit, Check, EyeOff, AlertTriangle, Tag, Download, Upload, Shield } from 'lucide-react';
+import { Search, Plus, Star, Copy, Eye, Trash2, Edit, Check, EyeOff, AlertTriangle, Tag, Download, Upload, Shield, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProfileModal from '../components/ProfileModal';
 import EntryModal from '../components/EntryModal';
@@ -28,7 +28,24 @@ export default function Dashboard() {
     const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
     const [entries, setEntries] = useState<VaultEntry[]>(() => {
-        const saved = localStorage.getItem('vaultEntries');
+        const email = localStorage.getItem('vaultEmail');
+        if (!email) return [];
+
+        // Use user-specific key
+        const userKey = `vaultEntries_${email}`;
+        const saved = localStorage.getItem(userKey);
+
+        // Migration: If user-specific key is empty but old generic key has data, move it
+        if (!saved) {
+            const legacy = localStorage.getItem('vaultEntries');
+            if (legacy) {
+                console.log(`[STORAGE] Migrating legacy vault data for ${email}`);
+                localStorage.setItem(userKey, legacy);
+                // We keep the legacy one temporarily to be safe, but isolated for this user now
+                return JSON.parse(legacy);
+            }
+        }
+
         return saved ? JSON.parse(saved) : [];
     });
 
@@ -68,7 +85,10 @@ export default function Dashboard() {
 
     // Persist entries to LocalStorage AND Backend
     useEffect(() => {
-        localStorage.setItem('vaultEntries', JSON.stringify(entries));
+        const email = localStorage.getItem('vaultEmail');
+        if (email) {
+            localStorage.setItem(`vaultEntries_${email}`, JSON.stringify(entries));
+        }
 
         // Only sync to backend if user is logged in (has auth token)
         const token = localStorage.getItem('authToken');
@@ -76,7 +96,6 @@ export default function Dashboard() {
             console.log('[SYNC] Skipping backend sync - user not logged in');
             return;
         }
-
         // Sync to backend with a small delay to avoid spamming
         const syncTimeout = setTimeout(() => {
             console.log(`[SYNC] Attempting to sync ${entries.length} entries to backend...`);
@@ -319,6 +338,18 @@ export default function Dashboard() {
                                 <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center text-primary font-bold">
                                     V
                                 </div>
+                            </button>
+
+                            <button
+                                onClick={() => {
+                                    localStorage.removeItem('authToken');
+                                    localStorage.removeItem('vaultEmail');
+                                    window.location.href = '/';
+                                }}
+                                className="w-10 h-10 rounded-xl bg-red-500/10 hover:bg-red-500/20 transition-all flex items-center justify-center border border-red-500/20 text-red-500"
+                                title="Logout"
+                            >
+                                <LogOut className="w-4 h-4" />
                             </button>
 
                             <button
