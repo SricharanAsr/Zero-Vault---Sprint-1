@@ -95,10 +95,17 @@ Ensure you have the following installed on your system:
 >
 > **Already Exists Error?** If you see "already exists and is not an empty directory", it means you've already cloned it! Just skip to the `cd` command below.
 
-Open your terminal (Git Bash, Command Prompt, or PowerShell) and run:
+Open your terminal (Git Bash is recommended) and run:
 ```bash
-git clone https://github.com/SricharanAsr/Zero-Vault---Sprint-1.git
-cd Zero-Vault---Sprint-1
+# Go to your D: drive (or C: if you prefer)
+cd /d
+
+# Create a fresh folder for the project
+mkdir -p "ZeroVault-Github"
+cd "ZeroVault-Github"
+
+# Clone the repository
+git clone https://github.com/SricharanAsr/Zero-Vault---Sprint-1.git .
 ```
 
 ### **3. Start the Backend (Server)**
@@ -124,11 +131,11 @@ cd Zero-Vault---Sprint-1
 
 ### **4. Start the Frontend (App)**
 1.  **Open a SECOND terminal window.**
-2.  **Navigate to the cloned project folder:**
+2.  **Navigate to the project root on D: drive:**
     ```bash
-    cd Zero-Vault---Sprint-1
+    cd /d/ZeroVault-Github
     ```
-3.  **Go to the frontend folder (Note: it is nested twice):**
+3.  **Go to the nested frontend folder:**
     ```bash
     cd zero-vault-sprint-1/zero-vault-sprint-1
     ```

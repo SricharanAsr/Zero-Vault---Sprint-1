@@ -76,9 +76,10 @@ export function AutoLockProvider({ children }: { children: ReactNode }) {
     const logout = () => {
         // Clear authentication and session data
         localStorage.removeItem('authToken');
-        localStorage.removeItem('vaultEmail');
+        localStorage.removeItem('vaultEmail'); // Clear email to allow switching accounts
 
-        // We also clear the generic vaultEntries if it exists, but user-specific ones are kept
+        // We do NOT remove vaultEntries here anymore because they are now isolated per user 
+        // in vaultEntries_email keys. Removing the generic one is fine if it exists.
         localStorage.removeItem('vaultEntries');
 
         // Redirect to landing
