@@ -111,7 +111,7 @@ export default function Dashboard() {
         }, 1000);
 
         return () => clearTimeout(syncTimeout);
-    }, [entries]);
+    }, [entries, showToast]);
 
     const categories = ['all', ...Array.from(new Set(entries.map(e => e.category).filter(Boolean)))];
 
@@ -277,7 +277,7 @@ export default function Dashboard() {
 
         window.addEventListener('keydown', handleKeyboard);
         return () => window.removeEventListener('keydown', handleKeyboard);
-    }, []);
+    }, [lockVault]);
 
     const getFavicon = (url: string) => {
         try {

@@ -10,7 +10,8 @@ interface ClipboardContextType {
     };
 }
 
-export const ClipboardContext = createContext<ClipboardContextType | undefined>(undefined);
+const ClipboardContext = createContext<ClipboardContextType | undefined>(undefined);
+export { ClipboardContext };
 
 export function ClipboardProvider({ children }: { children: ReactNode }) {
     const [hasCopied, setHasCopied] = useState(false);
