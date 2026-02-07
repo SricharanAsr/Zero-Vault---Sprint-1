@@ -31,14 +31,15 @@ jobs:
     - name: Create .env for Backend
       working-directory: ./backend/zero-knowledge
       run: |
-        echo "MONGO_URI=mongodb://localhost:27017/zero-knowledge" > .env
+        echo "MONGO_URI=mongodb://127.0.0.1:27017/zero-knowledge" > .env
         echo "JWT_SECRET=test-secret" >> .env
 
     - name: Start Backend
       working-directory: ./backend/zero-knowledge
       run: |
-        npm start &
-        npx wait-on tcp:3000
+        npm start > backend.log 2>&1 &
+        echo "Waiting for backend on port 3000..."
+        npx wait-on --timeout 60000 tcp:127.0.0.1:3000 || (cat backend.log && exit 1)
 
     - name: Install dependencies (Frontend)
       working-directory: ./zero-vault-sprint-1/zero-vault-sprint-1
@@ -46,9 +47,9 @@ jobs:
 
     - name: Install Playwright Browsers
       working-directory: ./zero-vault-sprint-1/zero-vault-sprint-1
-      run: npx playwright install --with-deps chromium
+      run: npx playwright install chromium --with-deps
 
-    - name: Run Lint (Non-blocking)
+    - name: Run Lint (Informational only)
       working-directory: ./zero-vault-sprint-1/zero-vault-sprint-1
       run: npm run lint || true
 
@@ -59,3 +60,5 @@ jobs:
     - name: Run E2E tests
       working-directory: ./zero-vault-sprint-1/zero-vault-sprint-1
       run: npx playwright test
+      env:
+        CI: true
