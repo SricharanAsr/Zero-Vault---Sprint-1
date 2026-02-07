@@ -78,6 +78,56 @@ We are continuously evolving. Here is what's coming next:
 
 ---
 
+## 🧪 Quality Assurance & Testing (QA)
+
+Zero-Vault follows a rigorous testing protocol to ensure your data remains secure. We have implemented **4 Quality Assurance Epics** as part of Sprint 1.
+
+### 1. Functional E2E Testing (US 2)
+- **Scope**: Automated verification of the entire user journey: Registration → Unlock → Dashboard → CRUD.
+- **Run Locally**: `npx playwright test tests/functional.spec.ts`
+- **Output**: Verified that vault data persists locally and syncs correctly to the backend.
+
+### 2. Performance Testing at Scale (US 6)
+- **Scope**: Stress testing the vault with **10,000 synthetic entries**.
+- **Run Locally**: `npx playwright test tests/performance.spec.ts`
+- **Result**: Confirmed stable rendering (< 1.5s) using `react-window` virtualization even with massive data payloads.
+
+### 3. Usability & Accessibility Testing (US 7)
+- **Scope**: WCAG 2.1 AA compliance audits using `@axe-core/playwright`.
+- **Run Locally**: `npx playwright test tests/accessibility.spec.ts`
+- **Finding**: Logged violations for further refinement (ARIA labels and color contrast for glassmorphism).
+
+### 4. CI/CD Automation (US 8)
+- **Scope**: Integration of automated testing into the GitHub workflow.
+- **Location**: [.github/workflows/ci.yml](file:///.github/workflows/ci.yml)
+- **Function**: Automatically runs full test suite (Lint, Unit, E2E) on every push to `main` or `master`.
+
+---
+
+## 🛠️ How to Run the Full Test Suite
+
+1. **Prerequisites**: Ensure you have installed the browsers:
+   ```bash
+   npx playwright install chromium
+   ```
+
+2. **Run Unit Tests**:
+   ```bash
+   npm run test
+   ```
+
+3. **Run E2E/Performance/Accessibility Tests**:
+   ```bash
+   npm run test:e2e
+   ```
+
+4. **View Detailed Report**:
+   ```bash
+   npx playwright show-report
+   ```
+
+---
+
 ## 🚀 How to Run the Project (Step-by-Step)
 
 Follow these steps exactly to get your project running from zero to hero.
