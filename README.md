@@ -106,25 +106,62 @@ Zero-Vault follows a rigorous testing protocol to ensure your data remains secur
 
 ## How to Run the Full Test Suite
 
-1. **Prerequisites**: Ensure you have installed the browsers:
-   ```bash
-   npx playwright install chromium
-   ```
+Follow these steps to execute the automated testing suite on your local machine.
 
-2. **Run Unit Tests**:
-   ```bash
-   npm run test
-   ```
+### 1. Open your Terminal
+Open a new terminal window or command prompt.
 
-3. **Run E2E/Performance/Accessibility Tests**:
-   ```bash
-   npm run test:e2e
-   ```
+### 2. Navigate to the Frontend Project
+The test suite is managed within the frontend directory.
+```bash
+cd zero-vault-sprint-1/zero-vault-sprint-1
+```
 
-4. **View Detailed Report**:
-   ```bash
-   npx playwright show-report
-   ```
+### 3. Install Browser Binaries
+If this is your first time running tests, you must install the Playwright browser engines.
+```bash
+npx playwright install chromium
+```
+
+### 4. Execute Unit Tests
+Run the component and utility unit tests using Vitest.
+```bash
+npm run test
+```
+
+### 5. Execute E2E, Performance, and Accessibility Tests
+Ensure your backend server is running in another terminal before starting these tests.
+```bash
+npm run test:e2e
+```
+
+### 6. Generate and View Reports
+After the tests complete, you can view a detailed visual report of the results.
+```bash
+npx playwright show-report
+```
+
+---
+
+## CI/CD Automation Procedure
+
+The project uses GitHub Actions to maintain code quality through an automated pipeline.
+
+### Step 1: Code Contribution
+When you push code to the main or master branch, or open a pull request, the CI/CD pipeline is automatically triggered.
+
+### Step 2: Environment Setup
+The GitHub runner initializes a Linux environment, installs Node.js, and pulls the latest project dependencies for both the frontend and backend.
+
+### Step 3: Automated Quality Checks
+The pipeline executes the following checks in sequence:
+1. Linting: Verifies code style and identifies potential errors.
+2. Unit Testing: Runs the Vitest suite to ensure component logic is sound.
+3. E2E Testing: Launches the backend, starts the frontend, and runs the Playwright suite to verify functional, performance, and accessibility requirements.
+
+### Step 4: Final Status
+- If all checks pass, the build is marked as successful (Green).
+- If any test fails, the build fails, and the developer is notified to review the logs and apply fixes.
 
 ---
 
