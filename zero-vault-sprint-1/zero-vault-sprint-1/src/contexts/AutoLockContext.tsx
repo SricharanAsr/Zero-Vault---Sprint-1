@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import { useLocation } from 'wouter';
 
@@ -18,7 +18,7 @@ export function AutoLockProvider({ children }: { children: ReactNode }) {
         const saved = localStorage.getItem('autoLockMinutes');
         return saved ? parseInt(saved) : 15;
     });
-    const [lastActivity, setLastActivity] = useState(Date.now());
+    const [lastActivity, setLastActivity] = useState(() => Date.now());
 
     // Track user activity
     useEffect(() => {
@@ -40,6 +40,39 @@ export function AutoLockProvider({ children }: { children: ReactNode }) {
         };
     }, []);
 
+    const lockVault = useCallback(() => {
+        // Clear sensitive data from memory
+        localStorage.removeItem('vaultMasterPassword');
+
+        // Redirect to unlock page
+        setLocation('/unlock');
+    }, [setLocation]);
+
+    const panicLock = useCallback(() => {
+        // Immediate lock with memory cleanup
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // Clear clipboard
+        navigator.clipboard.writeText('');
+
+        // Redirect to landing
+        setLocation('/');
+    }, [setLocation]);
+
+    const logout = useCallback(() => {
+        // Clear authentication and session data
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('vaultEmail'); // Clear email to allow switching accounts
+
+        // We do NOT remove vaultEntries here anymore because they are now isolated per user 
+        // in vaultEntries_email keys. Removing the generic one is fine if it exists.
+        localStorage.removeItem('vaultEntries');
+
+        // Redirect to landing
+        setLocation('/');
+    }, [setLocation]);
+
     // Check inactivity periodically
     useEffect(() => {
         const checkInactivity = setInterval(() => {
@@ -51,40 +84,7 @@ export function AutoLockProvider({ children }: { children: ReactNode }) {
         }, 10000); // Check every 10 seconds
 
         return () => clearInterval(checkInactivity);
-    }, [lastActivity, autoLockMinutes]);
-
-    const lockVault = () => {
-        // Clear sensitive data from memory
-        localStorage.removeItem('vaultMasterPassword');
-
-        // Redirect to unlock page
-        setLocation('/unlock');
-    };
-
-    const panicLock = () => {
-        // Immediate lock with memory cleanup
-        localStorage.clear();
-        sessionStorage.clear();
-
-        // Clear clipboard
-        navigator.clipboard.writeText('');
-
-        // Redirect to landing
-        setLocation('/');
-    };
-
-    const logout = () => {
-        // Clear authentication and session data
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('vaultEmail'); // Clear email to allow switching accounts
-
-        // We do NOT remove vaultEntries here anymore because they are now isolated per user 
-        // in vaultEntries_email keys. Removing the generic one is fine if it exists.
-        localStorage.removeItem('vaultEntries');
-
-        // Redirect to landing
-        setLocation('/');
-    };
+    }, [lastActivity, autoLockMinutes, lockVault]);
 
     return (
         <AutoLockContext.Provider value={{ lockVault, panicLock, logout, autoLockMinutes, setAutoLockMinutes }}>
@@ -93,6 +93,7 @@ export function AutoLockProvider({ children }: { children: ReactNode }) {
     );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAutoLock() {
     const context = useContext(AutoLockContext);
     if (!context) {

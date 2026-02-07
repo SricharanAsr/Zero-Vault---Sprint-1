@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, User, Camera, Save } from 'lucide-react';
 import { useToast } from '../contexts/ToastContext';
@@ -17,18 +17,14 @@ interface ProfileModalProps {
 export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
     const { showToast } = useToast();
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [profile, setProfile] = useState<ProfileData>({
-        displayName: 'Vault Keeper',
-        avatarUrl: '',
-        bannerColor: '#10b981' // Default emerald-500
-    });
-
-    useEffect(() => {
+    const [profile, setProfile] = useState<ProfileData>(() => {
         const saved = localStorage.getItem('userProfile');
-        if (saved) {
-            setProfile(JSON.parse(saved));
-        }
-    }, []);
+        return saved ? JSON.parse(saved) : {
+            displayName: 'Vault Keeper',
+            avatarUrl: '',
+            bannerColor: '#10b981' // Default emerald-500
+        };
+    });
 
     const handleSave = () => {
         localStorage.setItem('userProfile', JSON.stringify(profile));

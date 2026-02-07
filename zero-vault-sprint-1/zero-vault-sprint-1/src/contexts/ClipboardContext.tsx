@@ -11,7 +11,7 @@ interface ClipboardContextType {
 }
 
 const ClipboardContext = createContext<ClipboardContextType | undefined>(undefined);
-export { ClipboardContext };
+
 
 export function ClipboardProvider({ children }: { children: ReactNode }) {
     const [hasCopied, setHasCopied] = useState(false);
@@ -24,9 +24,12 @@ export function ClipboardProvider({ children }: { children: ReactNode }) {
             interval = setInterval(() => {
                 setTimeLeft((prev) => prev - 1);
             }, 1000);
-        } else if (timeLeft === 0) {
-            setHasCopied(false);
-            setCopiedId(null);
+        } else if (timeLeft === 0 && hasCopied) {
+            const timeout = setTimeout(() => {
+                setHasCopied(false);
+                setCopiedId(null);
+            }, 0);
+            return () => clearTimeout(timeout);
         }
         return () => clearInterval(interval);
     }, [hasCopied, timeLeft]);
@@ -51,6 +54,7 @@ export function ClipboardProvider({ children }: { children: ReactNode }) {
     );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useClipboard() {
     const context = useContext(ClipboardContext);
     if (context === undefined) {
