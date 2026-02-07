@@ -7,8 +7,17 @@ export default defineConfig({
         environment: 'jsdom',
         globals: true,
         setupFiles: './src/test/setup.ts',
+        // Only look for tests within the src directory
         include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-        exclude: ['**/node_modules/**', '**/dist/**', '**/tests/**'],
+        // Explicitly ignore the top-level tests directory
+        exclude: [
+            '**/node_modules/**',
+            '**/dist/**',
+            '**/cypress/**',
+            '**/.{idea,git,cache,output,temp}/**',
+            './tests/**',
+            'tests/**'
+        ],
         passWithNoTests: true,
     },
 });
