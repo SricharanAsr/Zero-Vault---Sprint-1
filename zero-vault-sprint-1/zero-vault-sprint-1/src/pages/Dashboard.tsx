@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Search, Plus, Star, Copy, Eye, Trash2, Edit, Check, EyeOff, AlertTriangle, Tag, Download, Upload, Shield, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProfileModal from '../components/ProfileModal';
@@ -64,11 +64,11 @@ export default function Dashboard() {
     });
     const clearClipboardSeconds = 30;
 
-    const logout = () => {
+    const logout = useCallback(() => {
         localStorage.removeItem('authToken');
         localStorage.removeItem('vaultEmail');
         window.location.href = '/';
-    };
+    }, []);
 
     // Load from Backend on Mount
     useEffect(() => {
