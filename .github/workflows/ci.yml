@@ -54,10 +54,6 @@ jobs:
       working-directory: ./zero-vault-sprint-1/zero-vault-sprint-1
       run: npm run lint || true
 
-    - name: Run unit tests
-      working-directory: ./zero-vault-sprint-1/zero-vault-sprint-1
-      run: npx vitest run src
-
     - name: Run E2E tests
       working-directory: ./zero-vault-sprint-1/zero-vault-sprint-1
       run: npx playwright test

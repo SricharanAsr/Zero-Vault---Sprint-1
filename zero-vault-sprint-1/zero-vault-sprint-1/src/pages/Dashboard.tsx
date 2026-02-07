@@ -255,7 +255,7 @@ export default function Dashboard() {
                 } else {
                     showToast('Invalid vault file format', 'error');
                 }
-            } catch (error) {
+            } catch {
                 showToast('Failed to import vault', 'error');
             }
         };

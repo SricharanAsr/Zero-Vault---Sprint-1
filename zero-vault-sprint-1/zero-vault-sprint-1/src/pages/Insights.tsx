@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Shield, AlertTriangle, CheckCircle, ArrowRight, RefreshCw, Key } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { calculatePasswordStrength, isCommonPassword } from '../utils/passwordStrength';
 import { useLocation } from 'wouter';
 
