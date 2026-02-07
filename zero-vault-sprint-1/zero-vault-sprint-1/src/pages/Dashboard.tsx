@@ -64,6 +64,12 @@ export default function Dashboard() {
     });
     const clearClipboardSeconds = 30;
 
+    const logout = () => {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('vaultEmail');
+        window.location.href = '/';
+    };
+
     // Load from Backend on Mount
     useEffect(() => {
         const loadFromBackend = async () => {
@@ -277,7 +283,7 @@ export default function Dashboard() {
 
         window.addEventListener('keydown', handleKeyboard);
         return () => window.removeEventListener('keydown', handleKeyboard);
-    }, [lockVault]);
+    }, [logout]);
 
     const getFavicon = (url: string) => {
         try {
@@ -341,11 +347,7 @@ export default function Dashboard() {
                             </button>
 
                             <button
-                                onClick={() => {
-                                    localStorage.removeItem('authToken');
-                                    localStorage.removeItem('vaultEmail');
-                                    window.location.href = '/';
-                                }}
+                                onClick={logout}
                                 className="w-10 h-10 rounded-xl bg-red-500/10 hover:bg-red-500/20 transition-all flex items-center justify-center border border-red-500/20 text-red-500"
                                 title="Logout"
                             >
