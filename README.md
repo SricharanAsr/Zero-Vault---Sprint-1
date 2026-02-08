@@ -178,19 +178,17 @@ Ensure you have the following installed on your system:
 
 ### **2. Clone the Repository**
 
-If you encounter a permission denied error, ensure you are in a directory you own using the cd command.
-
 Open your terminal and run:
 ```bash
-# Navigate to your target directory
-cd /d
-
-# Create a fresh folder for the project
-mkdir -p "ZeroVault-Github"
-cd "ZeroVault-Github"
+# Create a fresh folder for the project (Optional)
+mkdir -p "ZeroVault-Projects"
+cd "ZeroVault-Projects"
 
 # Clone the repository
-git clone https://github.com/SricharanAsr/Zero-Vault---Sprint-1.git .
+git clone https://github.com/SricharanAsr/Zero-Vault---Sprint-1.git
+
+# Navigate into the cloned repository
+cd Zero-Vault---Sprint-1
 ```
 
 ### **3. Start the Backend (Server)**
@@ -203,7 +201,7 @@ git clone https://github.com/SricharanAsr/Zero-Vault---Sprint-1.git .
     npm install
     ```
 3.  **Setup Environment Variables:**
-    Ensure you have a .env file in backend/zero-knowledge/ with the following:
+    Ensure you have a .env file in `backend/zero-knowledge/` with the following:
     ```env
     MONGO_URI=mongodb://localhost:27017/zero-knowledge
     JWT_SECRET=super-secret-key-change-this-in-production
@@ -212,13 +210,18 @@ git clone https://github.com/SricharanAsr/Zero-Vault---Sprint-1.git .
     ```bash
     npm start
     ```
-    Note: Keep this terminal window open.
+    *Keep this terminal window open.*
 
 ### **4. Start the Frontend (App)**
 1.  **Open a second terminal window.**
-2.  **Navigate to the project root.**
+2.  **Navigate to the project root:**
+    If you are in `ZeroVault-Projects`, run:
+    ```bash
+    cd Zero-Vault---Sprint-1
+    ```
 3.  **Go to the frontend folder:**
     ```bash
+    # Note: Double check the directory name if it varies
     cd zero-vault-sprint-1/zero-vault-sprint-1
     ```
 4.  **Install dependencies:**
