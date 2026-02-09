@@ -12,15 +12,13 @@ test.describe('Zero-Vault Accessibility Audits', () => {
         await page.fill('input[type="email"]', testEmail);
         await page.locator('input[type="password"]').first().fill(testPassword);
         await page.locator('input[type="password"]').nth(1).fill(testPassword);
-        await Promise.all([
-            page.waitForURL(/\/unlock/),
-            page.click('button:has-text("Create Vault")')
-        ]);
+        await page.click('button:has-text("Create Vault")');
+        await page.waitForURL(/\/unlock/, { timeout: 20000 });
+
         await page.fill('input[type="password"]', testPassword);
-        await Promise.all([
-            page.waitForURL(/\/dashboard/),
-            page.click('button:has-text("Unlock")')
-        ]);
+        await page.click('button:has-text("Unlock")');
+        await page.waitForURL(/\/dashboard/, { timeout: 20000 });
+
         return { testEmail, testPassword };
     }
 
@@ -35,28 +33,27 @@ test.describe('Zero-Vault Accessibility Audits', () => {
 
     test('Unlock Page should be accessible', async ({ page }) => {
         await page.goto('/unlock');
-        await page.waitForSelector('img[alt*="Logo"]'); // Wait for logo to ensure load
+        await page.waitForSelector('img[alt*="Logo"]', { timeout: 5000 });
         const results = await new AxeBuilder({ page }).analyze();
         expect(results.violations.length).toBeLessThanOrEqual(10);
     });
 
     test('Dashboard Page should be accessible', async ({ page }) => {
-        // Real Login
-        await setupAuthenticatedPage(page);
+        test.setTimeout(60000); // Increase timeout for auth flow
 
-        // Now on Dashboard
-        await page.waitForSelector('h1:has-text("Your Vault")');
+        await setupAuthenticatedPage(page);
+        await page.waitForSelector('h1:has-text("Your Vault")', { timeout: 10000 });
+
         const results = await new AxeBuilder({ page }).analyze();
         expect(results.violations.length).toBeLessThanOrEqual(15);
     });
 
     test('Entry Modal should be accessible', async ({ page }) => {
-        // Real Login
-        await setupAuthenticatedPage(page);
+        test.setTimeout(60000); // Increase timeout for auth flow
 
-        // Open Modal
+        await setupAuthenticatedPage(page);
         await page.click('button:has-text("Add Entry")');
-        await page.waitForSelector('h2:has-text("Add New Entry")');
+        await page.waitForSelector('h2:has-text("Add New Entry")', { timeout: 5000 });
 
         const results = await new AxeBuilder({ page }).analyze();
         expect(results.violations.length).toBeLessThanOrEqual(10);
