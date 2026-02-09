@@ -4,45 +4,42 @@ test.describe('Zero-Vault Functional Flow', () => {
     const testEmail = `test-${Date.now()}@example.com`;
     const testPassword = 'Password123!';
 
-    test('should register and login successfully', async ({ page }) => {
-        // Go to Landing
+    test('should register, login, and manage vault entries', async ({ page }) => {
+        // --- 1. Registration ---
         await page.goto('/');
         await expect(page.locator('h1')).toContainText('Zero-Knowledge');
 
-        // Go to Register
         await page.click('text=Create Vault');
         await expect(page).toHaveURL(/\/register/);
 
-        // Fill Registration
         await page.fill('input[type="email"]', testEmail);
-        // Master Password (first password input)
         await page.locator('input[type="password"]').first().fill(testPassword);
-        // Confirm Password (second password input)
         await page.locator('input[type="password"]').nth(1).fill(testPassword);
 
-        await page.click('button:has-text("Create Vault")');
+        // Click Create Vault and wait for navigation
+        await Promise.all([
+            page.waitForURL(/\/unlock/, { timeout: 15000 }),
+            page.click('button:has-text("Create Vault")')
+        ]);
 
-        // Should redirect to Unlock
-        await page.waitForURL(/\/unlock/, { timeout: 10000 });
-
+        // --- 2. Unlock/Login ---
         await page.fill('input[type="password"]', testPassword);
-        await page.click('button:has-text("Unlock")');
+        await Promise.all([
+            page.waitForURL(/\/dashboard/, { timeout: 15000 }),
+            page.click('button:has-text("Unlock")')
+        ]);
 
-        await expect(page).toHaveURL(/\/dashboard/);
-    });
+        await expect(page.locator('h1')).toContainText('Your Vault');
 
-    test('should manage vault entries', async ({ page }) => {
-        // Assume logged in (setup localStorage)
-        await page.goto('/');
-        await page.evaluate(({ email }) => {
-            localStorage.setItem('vaultEmail', email);
-            localStorage.setItem('authToken', 'fake-token-for-testing');
-        }, { email: testEmail });
-
-        await page.goto('/dashboard');
+        // --- 3. Manage Entries ---
 
         // Create new entry
-        await page.click('text=Add Entry');
+        // Use more specific selector ensuring visibility
+        await page.click('button:has-text("Add Entry")');
+
+        // Modal should appear
+        await expect(page.locator('h2:has-text("Add New Entry")')).toBeVisible();
+
         await page.fill('input[placeholder="Website Name"]', 'Test Site');
         await page.fill('input[placeholder="Username"]', 'testuser');
         await page.fill('input[placeholder="Password"]', 'secret123');
@@ -57,17 +54,20 @@ test.describe('Zero-Vault Functional Flow', () => {
         await page.click('button:has-text("Save Entry")');
         await expect(page.locator('text=Updated Site')).toBeVisible();
 
-        // Favorite entry
-        // Search bar star is usually first, entry star is second
-        await page.locator('button:has(svg.lucide-star)').nth(1).click();
+        // Favorite entry (Star icon)
+        // Note: The first star might be the filter toggle. The entry star is usually inside the entry card.
+        // We'll target the star within the entry card.
+        // The entry card contains strict text "Updated Site".
+        const entryCard = page.locator('div.glass-panel', { hasText: 'Updated Site' });
+        await entryCard.locator('button:has(svg.lucide-star)').click();
 
         // Search entry
         await page.fill('input[placeholder*="Search"]', 'Updated');
         await expect(page.locator('text=Updated Site')).toBeVisible();
 
         // Delete entry
-        await page.click('button:has(svg.lucide-trash2)');
-        await page.click('button:has-text("Delete")');
+        await entryCard.locator('button:has(svg.lucide-trash2)').click();
+        await page.click('button:has-text("Delete")'); // Confirm deletion in modal
         await expect(page.locator('text=Updated Site')).not.toBeVisible();
     });
 });

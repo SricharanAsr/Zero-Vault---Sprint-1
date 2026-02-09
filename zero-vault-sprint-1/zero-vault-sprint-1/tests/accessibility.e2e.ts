@@ -2,57 +2,63 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 test.describe('Zero-Vault Accessibility Audits', () => {
+
+    // Helper to get authenticated state
+    async function setupAuthenticatedPage(page: any) {
+        const testEmail = `access-${Date.now()}@example.com`;
+        const testPassword = 'Password123!';
+
+        await page.goto('/register');
+        await page.fill('input[type="email"]', testEmail);
+        await page.locator('input[type="password"]').first().fill(testPassword);
+        await page.locator('input[type="password"]').nth(1).fill(testPassword);
+        await Promise.all([
+            page.waitForURL(/\/unlock/),
+            page.click('button:has-text("Create Vault")')
+        ]);
+        await page.fill('input[type="password"]', testPassword);
+        await Promise.all([
+            page.waitForURL(/\/dashboard/),
+            page.click('button:has-text("Unlock")')
+        ]);
+        return { testEmail, testPassword };
+    }
+
     test('Landing Page should be accessible', async ({ page }) => {
         await page.goto('/');
         const results = await new AxeBuilder({ page }).analyze();
         if (results.violations.length > 0) {
-            console.log('Accessibility Violations for Landing Page:', JSON.stringify(results.violations, null, 2));
+            console.log('Violations (Landing):', results.violations.length);
         }
-        // US 7 is about "conducting" testing. We expect some violations due to design.
         expect(results.violations.length).toBeLessThanOrEqual(10);
     });
 
     test('Unlock Page should be accessible', async ({ page }) => {
         await page.goto('/unlock');
-        await page.waitForSelector('img[alt*="Logo"]');
+        await page.waitForSelector('img[alt*="Logo"]'); // Wait for logo to ensure load
         const results = await new AxeBuilder({ page }).analyze();
-        if (results.violations.length > 0) {
-            console.log('Accessibility Violations for Unlock Page:', JSON.stringify(results.violations, null, 2));
-        }
         expect(results.violations.length).toBeLessThanOrEqual(10);
     });
 
     test('Dashboard Page should be accessible', async ({ page }) => {
-        await page.goto('/');
-        await page.evaluate(() => {
-            localStorage.setItem('vaultEmail', 'access@example.com');
-            localStorage.setItem('authToken', 'fake-token');
-        });
-        await page.goto('/dashboard');
-        await page.waitForSelector('h1:has-text("Your Vault")');
+        // Real Login
+        await setupAuthenticatedPage(page);
 
+        // Now on Dashboard
+        await page.waitForSelector('h1:has-text("Your Vault")');
         const results = await new AxeBuilder({ page }).analyze();
-        if (results.violations.length > 0) {
-            console.log('Accessibility Violations for Dashboard Page:', JSON.stringify(results.violations, null, 2));
-        }
         expect(results.violations.length).toBeLessThanOrEqual(15);
     });
 
     test('Entry Modal should be accessible', async ({ page }) => {
-        await page.goto('/');
-        await page.evaluate(() => {
-            localStorage.setItem('vaultEmail', 'access@example.com');
-            localStorage.setItem('authToken', 'fake-token');
-        });
-        await page.goto('/dashboard');
+        // Real Login
+        await setupAuthenticatedPage(page);
 
-        await page.click('text=Add Entry');
+        // Open Modal
+        await page.click('button:has-text("Add Entry")');
         await page.waitForSelector('h2:has-text("Add New Entry")');
 
         const results = await new AxeBuilder({ page }).analyze();
-        if (results.violations.length > 0) {
-            console.log('Accessibility Violations for Entry Modal:', JSON.stringify(results.violations, null, 2));
-        }
         expect(results.violations.length).toBeLessThanOrEqual(10);
     });
 });
