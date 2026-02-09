@@ -12,9 +12,6 @@ router.post("/upload", requireAuth, async (req, res) => {
   try {
     const { encryptedVault } = req.body;
 
-    console.log(`[VAULT UPLOAD DEBUG] User: ${req.user ? req.user.username : 'UNDEFINED'}`);
-    console.log(`[VAULT UPLOAD DEBUG] Payload Size: ${encryptedVault ? encryptedVault.length : 'MISSING'}`);
-
     if (!encryptedVault) {
       return res.status(400).json({
         error: "Encrypted vault data is required",
