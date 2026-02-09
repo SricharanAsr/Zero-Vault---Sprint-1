@@ -124,16 +124,23 @@ npx playwright install chromium
 ```
 
 ### 4. Execute Unit Tests
-Run the component and utility unit tests using Vitest.
+Run the component and utility unit tests using Vitest. This verifies individual components like the Password Generator.
 ```bash
 npm run test
 ```
 
 ### 5. Execute E2E, Performance, and Accessibility Tests
-Ensure your backend server is running in another terminal before starting these tests.
-```bash
-npm run test:e2e
-```
+**Critical:** You must start the **Backend Server** before running these tests. The frontend will start automatically.
+
+1.  **Open a new terminal** and start the backend:
+    ```bash
+    cd backend/zero-knowledge
+    npm start
+    ```
+2.  **Return to your frontend terminal** (where you are in `zero-vault-sprint-1`) and run:
+    ```bash
+    npm run test:e2e
+    ```
 
 ### 6. Generate and View Reports
 After the tests complete, you can view a detailed visual report of the results.
