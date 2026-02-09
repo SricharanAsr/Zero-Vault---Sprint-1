@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Eye, EyeOff, ChevronDown, Tag, Briefcase, User, DollarSign, MessageSquare, Film, ShoppingCart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PasswordGenerator from './PasswordGenerator';
@@ -30,6 +30,15 @@ export default function EntryModal({ isOpen, onClose, onSave, entry, mode }: Ent
     const [errors, setErrors] = useState<Partial<Record<keyof VaultEntry, string>>>({});
     const [showPassword, setShowPassword] = useState(false);
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
+    // Sync formData with entry prop when modal opens or entry changes
+    useEffect(() => {
+        if (isOpen) {
+            setFormData(entry || { website: '', username: '', password: '', securityQuestion: '', securityAnswer: '', isFavorite: false });
+            setErrors({});
+            setShowPassword(false);
+        }
+    }, [isOpen, entry]);
 
     const categories = [
         { id: 'Work', label: 'Work', icon: <Briefcase className="w-4 h-4" />, color: 'text-blue-400' },

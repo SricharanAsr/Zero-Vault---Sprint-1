@@ -67,6 +67,7 @@ export default function DeleteConfirm({ isOpen, onClose, onConfirm, entryName }:
                                 </button>
                                 <button
                                     onClick={handleConfirm}
+                                    data-testid="confirm-delete-button"
                                     className="flex-1 px-4 py-3 bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-xl font-semibold transition-all"
                                 >
                                     Delete

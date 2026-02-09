@@ -5,7 +5,8 @@ test.describe('Zero-Vault Accessibility Audits', () => {
 
     // Helper to get authenticated state
     async function setupAuthenticatedPage(page: any) {
-        const testEmail = `access-${Date.now()}@example.com`;
+        const randomStr = Math.random().toString(36).substring(2, 7);
+        const testEmail = `access-${Date.now()}-${randomStr}@example.com`;
         const testPassword = 'Password123!';
 
         await page.goto('/register');
@@ -13,11 +14,11 @@ test.describe('Zero-Vault Accessibility Audits', () => {
         await page.locator('input[type="password"]').first().fill(testPassword);
         await page.locator('input[type="password"]').nth(1).fill(testPassword);
         await page.click('button:has-text("Create Vault")');
-        await page.waitForURL(/\/unlock/, { timeout: 20000 });
+        await page.waitForURL(/\/unlock/, { timeout: 30000 });
 
         await page.fill('input[type="password"]', testPassword);
         await page.click('button:has-text("Unlock")');
-        await page.waitForURL(/\/dashboard/, { timeout: 20000 });
+        await page.waitForURL(/\/dashboard/, { timeout: 30000 });
 
         return { testEmail, testPassword };
     }

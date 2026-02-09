@@ -370,6 +370,7 @@ export default function Dashboard() {
 
                             <button
                                 onClick={handleAddNew}
+                                data-testid="add-entry-button"
                                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-xl font-semibold flex items-center gap-2 transition-all glow-on-hover ripple shadow-lg shadow-primary/20"
                             >
                                 <Plus className="w-5 h-5" />
@@ -552,12 +553,14 @@ export default function Dashboard() {
                                             <div className="flex gap-1">
                                                 <button
                                                     onClick={() => handleEdit(entry)}
+                                                    data-testid="edit-entry-btn"
                                                     className="p-2.5 bg-white/5 hover:bg-white/10 rounded-xl transition-colors text-muted-foreground hover:text-foreground"
                                                 >
                                                     <Edit className="w-4 h-4" />
                                                 </button>
                                                 <button
                                                     onClick={() => handleDeleteClick(entry)}
+                                                    data-testid="delete-entry-btn"
                                                     className="p-2.5 bg-white/5 hover:bg-red-500/20 hover:text-red-500 rounded-xl transition-colors text-muted-foreground transition-all"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
