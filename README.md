@@ -106,64 +106,51 @@ Zero-Vault follows a rigorous testing protocol to ensure your data remains secur
 
 ## How to Run the Full Test Suite
 
-Follow these exact steps to run all tests (Unit, E2E, Performance, and Accessibility).
+Follow these exact steps to run all tests.
 
-### 1. Prerequisites
-- Open your terminal (Command Prompt, PowerShell, or VS Code).
-- Make sure you are in the root folder of the project (`Frontend+Backend`).
+### 1. Start the Backend Server (Terminal 1)
+The E2E tests need the backend to be running.
 
-### 2. Start the Backend Server
-The E2E tests require the backend to be running to verify authentication and database operations.
-
-1.  **Open Terminal 1** and navigate to the backend folder:
+1.  **Open your first terminal** and navigate into the project folder:
+    ```bash
+    cd Zero-Vault---Sprint-1
+    ```
+2.  Go to the backend folder:
     ```bash
     cd backend/zero-knowledge
     ```
-2.  Install backend dependencies (if you haven't already):
+3.  Install dependencies and start the server:
     ```bash
     npm install
-    ```
-3.  Start the backend server:
-    ```bash
     npm start
     ```
-    *Keep this terminal open.* You should see "Server running on port 3000".
+    *Keep this terminal open.*
 
-### 3. Setup Frontend & Run Unit Tests
-Unit tests run in isolation and do not require the backend, but we need to set up the environment first.
-
-1.  **Open Terminal 2** (keep Terminal 1 running) and navigate to the frontend folder:
+### 2. Run Tests (Terminal 2)
+1.  **Open a NEW terminal** and navigate into the project folder:
+    ```bash
+    cd Zero-Vault---Sprint-1
+    ```
+2.  Go to the frontend folder:
     ```bash
     cd zero-vault-sprint-1/zero-vault-sprint-1
     ```
-2.  Install frontend dependencies:
+3.  Install dependencies and browsers:
     ```bash
     npm install
-    ```
-3.  Install Test Browsers (Required for E2E):
-    ```bash
     npx playwright install chromium
     ```
-4.  **Run Unit Tests:**
-    This tests individual components (like Password Generator) to ensure they work correctly.
+4.  **Run Unit Tests** (Tests components like Password Generator):
     ```bash
     npm run test
     ```
-    *You should see green "PASS" indicators.*
-
-### 4. Run End-to-End (E2E) Tests
-These tests simulate a real user interacting with your app.
-
-1.  Ensure you are still in **Terminal 2** (frontend folder).
-2.  Ensure **Terminal 1** (backend) is still running.
-3.  Execute the full test suite:
+5.  **Run E2E Tests** (Tests the full app flow):
     ```bash
     npm run test:e2e
     ```
-    *Note: The frontend server will start automatically during this test.*
+    *The frontend will start automatically.*
 
-### 5. View Test Reports
-After the E2E tests finish, view the visual report:
+### 3. View Reports
 ```bash
 npx playwright show-report
 ```
