@@ -1,265 +1,179 @@
 # Zero-Vault - Secure Password Management
 
-**Zero-Knowledge Password Vault - Sprint 1**
+**Zero-Knowledge Password Vault - Sprint 1 & 2**
 
-A secure, zero-knowledge password manager built with modern web technologies. This project implements client-side encryption, zero-knowledge authentication, and a professional user interface.
+Zero-Vault is a high-security, zero-knowledge password manager designed to protect your credentials across all devices. By leveraging client-side encryption and zero-knowledge proofs, we ensure that your master password and decrypted data never leave your local environment.
 
-## Features
+---
 
-- **Zero-Knowledge Architecture**: Your master password never leaves your device
-- **Client-Side Encryption**: All vault data is encrypted before storage
-- **Modern UI/UX**: Built with React, TypeScript, and Framer Motion
-- **Cross-Device Sync**: Encrypted vault synchronization across devices
-- **Password Analytics**: Insights into password strength and security
-- **Auto-Lock**: Automatic vault locking after inactivity
-- **Panic Mode**: Emergency data wipe functionality
+## Table of Contents
+1. [Introduction](#introduction)
+2. [About](#about)
+    - [Features](#features)
+    - [Technologies Used](#technologies-used)
+    - [Project Structure](#project-structure)
+3. [Installing](#installing)
+    - [Prerequisites](#prerequisites)
+    - [Step-by-Step Installation](#step-by-step-installation)
+4. [Usage](#usage)
+    - [Step-by-Step Project Running](#step-by-step-project-running)
+5. [Running Tests](#running-tests)
+    - [Step-by-Step Test Suite Running](#step-by-step-test-suite-running)
+    - [Quality Assurance Modules](#quality-assurance-modules)
+6. [Sprint 2 Plan](#sprint-2-plan)
+7. [CI/CD Testing](#cicd-testing)
+8. [Compatibility](#compatibility)
+9. [Project Support](#project-support)
+10. [License](#license)
 
-## Keyboard Shortcuts
+---
 
-Boost your productivity with these keyboard shortcuts:
+## 1. Introduction
+Zero-Vault keeps your data safe through a rigorous cryptographic workflow:
+1.  **Secure Registration**: A unique cryptographic secret is generated locally. Only a non-identifying "proof" is stored on the server.
+2.  **Zero-Knowledge Login**: Identity verification occurs via a mathematical challenge that never reveals your master password.
+3.  **Client-Side Encryption**: Passwords are encrypted on your device before being transmitted or saved to the database.
+4.  **Risk Engine**: Continuous monitoring for suspicious activity and brute-force attempts.
 
-- `Ctrl+K` - Search vault
-- `Ctrl+N` - Create new entry
-- `Ctrl+L` - Lock vault
-- `Ctrl+,` - Open settings
+---
 
-## Technologies Used
+## 2. About
 
-### Frontend
-- React 18 with TypeScript
-- Vite for fast builds
-- Framer Motion for animations
-- Wouter for lightweight routing
-- Lucide React for icons
+### Features
+- **Zero-Knowledge Architecture**: Total privacy for your master password.
+- **Client-Side Encryption**: AEAD-protected vault storage.
+- **Modern UI/UX**: Responsive glassmorphism interface built with React.
+- **Password Analytics**: Real-time strength meter and security insights.
+- **Auto-Lock**: Configurable inactivity timers for enhanced security.
+- **Keyboard Productivity**: `Ctrl+K` (Search), `Ctrl+N` (New Entry), `Ctrl+L` (Lock).
 
-### Backend
-- Node.js with Express
-- MongoDB for data persistence
-- JWT for authentication
-- Zero-knowledge proof verification
+### Technologies Used
+**Frontend:** React 18, TypeScript, Vite, Framer Motion, Tailwind CSS, Lucide React.  
+**Backend:** Node.js, Express, MongoDB, JWT, Zero-Knowledge Proof Primitives.
 
-## Project Structure
-
+### Project Structure
 ```
 Frontend+Backend/
 ├── zero-vault-sprint-1/     # React frontend
 │   ├── src/
-│   │   ├── components/      # Reusable UI components
-│   │   ├── pages/           # Page components
-│   │   ├── contexts/        # React contexts
-│   │   ├── services/        # API services
-│   │   └── utils/           # Utility functions
-│   └── package.json
+│   │   ├── components/      # UI components
+│   │   ├── pages/           # Views (Dashboard, Unlock, etc.)
+│   │   ├── contexts/        # State Management
+│   │   └── utils/           # Crypto & helper functions
+│   └── tests/               # Playwright E2E suites
 └── backend/
-    └── zero-knowledge/      # Express backend
+    └── zero-knowledge/      # Express API & ZK Logic
 ```
 
 ---
 
-## Project Workflow
+## 3. Installing
 
-How Zero-Vault keeps your data safe:
+### Prerequisites
+Before setting up Zero-Vault, ensure you have the following installed:
+- **Node.js**: v18.x or higher (LTS recommended)
+- **Git**: For version control
+- **MongoDB**: Community Server (running locally on port 27017)
+- **Browsers**: Chromium (for E2E tests)
 
-1.  **Secure Registration**: During signup, a unique cryptographic secret is generated locally. Only the "proof" is stored on the server.
-2.  **Zero-Knowledge Login**: When you unlock your vault, the system verifies your identity through a mathematical challenge that doesn't reveal your password.
-3.  **Client-Side Encryption**: Your passwords are encrypted on your device before being saved to the database.
-4.  **Risk Engine**: A background service monitors for suspicious activity, brute-force attempts, and weak master passwords.
-
----
-
-## Sprint 2 Roadmap (Planned)
-
-We are continuously evolving. Here is what's coming next:
-
-- [ ] **Multi-Factor Authentication (MFA)**: Adding TOTP (Google Authenticator) and Email OTP layers.
-- [ ] **Cloud Sync**: Full migration to MongoDB for seamless multi-device access.
-- [ ] **Security Audit Dashboard**: A dedicated UI to view login attempts and security health.
-- [ ] **Auto-Fill Extension**: A browser extension to bring Zero-Vault to every website.
-
----
-
-## Quality Assurance and Testing (QA)
-
-Zero-Vault follows a rigorous testing protocol to ensure your data remains secure. We have implemented four Quality Assurance Epics as part of Sprint 1.
-
-### 1. Functional E2E Testing (US 2)
-- **Scope**: Automated verification of the entire user journey: Registration, Unlock, Dashboard, and CRUD.
-- **Run Locally**: `npx playwright test tests/functional.spec.ts`
-- **Output**: Verified that vault data persists locally and synchronizes correctly to the backend.
-
-### 2. Performance Testing at Scale (US 6)
-- **Scope**: Stress testing the vault with 10,000 synthetic entries.
-- **Run Locally**: `npx playwright test tests/performance.spec.ts`
-- **Result**: Confirmed stable rendering using react-window virtualization with large data payloads.
-
-### 3. Usability and Accessibility Testing (US 7)
-- **Scope**: WCAG 2.1 AA compliance audits using @axe-core/playwright.
-- **Run Locally**: `npx playwright test tests/accessibility.spec.ts`
-- **Finding**: Logged violations for further refinement including labeling and color contrast.
-
-### 4. CI/CD Automation (US 8)
-- **Scope**: Integration of automated testing into the GitHub workflow.
-- **Location**: .github/workflows/ci.yml
-- **Function**: Automatically runs full test suite (Lint, Unit, E2E) on every push to main or master.
+### Step-by-Step Installation
+1. **Clone the project:**
+   ```bash
+   git clone https://github.com/SricharanAsr/Zero-Vault---Sprint-1.git
+   cd Zero-Vault---Sprint-1
+   ```
+2. **Setup Backend:**
+   ```bash
+   cd backend/zero-knowledge
+   npm install
+   ```
+3. **Setup Frontend:**
+   ```bash
+   cd ../../zero-vault-sprint-1/zero-vault-sprint-1
+   npm install
+   npx playwright install chromium
+   ```
 
 ---
 
-## How to Run the Full Test Suite
+## 4. Usage
 
-Follow these exact steps to run all tests.
+### Step-by-Step Project Running
+To run the full application locally, follow these steps in separate terminals:
 
-### 1. Start the Backend Server (Terminal 1)
-The E2E tests need the backend to be running.
-
-1.  **Open your first terminal** and navigate into the project folder:
-    ```bash
-    cd Zero-Vault---Sprint-1
-    ```
-2.  Go to the backend folder:
-    ```bash
-    cd backend/zero-knowledge
-    ```
-3.  Install dependencies and start the server:
-    ```bash
-    npm install
-    npm start
-    ```
-    *Keep this terminal open.*
-
-### 2. Run Tests (Terminal 2)
-1.  **Open a NEW terminal** and navigate into the project folder:
-    ```bash
-    cd Zero-Vault---Sprint-1
-    ```
-2.  Go to the frontend folder:
-    ```bash
-    cd zero-vault-sprint-1/zero-vault-sprint-1
-    ```
-3.  Install dependencies and browsers:
-    ```bash
-    npm install
-    npx playwright install chromium
-    ```
-4.  **Run Unit Tests** (Tests components like Password Generator):
-    ```bash
-    npm run test
-    ```
-5.  **Run E2E Tests** (Tests the full app flow):
-    ```bash
-    npm run test:e2e
-    ```
-    *The frontend will start automatically.*
-
-### 3. View Reports
+**Terminal 1: Backend Server**
 ```bash
-npx playwright show-report
+cd backend/zero-knowledge
+# Ensure your .env is configured (MONGO_URI, JWT_SECRET)
+npm start
 ```
 
----
-
-## CI/CD Automation Procedure
-
-The project uses GitHub Actions to maintain code quality through an automated pipeline.
-
-### Step 1: Code Contribution
-When you push code to the main or master branch, or open a pull request, the CI/CD pipeline is automatically triggered.
-
-### Step 2: Environment Setup
-The GitHub runner initializes a Linux environment, installs Node.js, and pulls the latest project dependencies for both the frontend and backend.
-
-### Step 3: Automated Quality Checks
-The pipeline executes the following checks in sequence:
-1. Linting: Verifies code style and identifies potential errors.
-2. Unit Testing: Runs the Vitest suite to ensure component logic is sound.
-3. E2E Testing: Launches the backend, starts the frontend, and runs the Playwright suite to verify functional, performance, and accessibility requirements.
-
-### Step 4: Final Status
-- If all checks pass, the build is marked as successful (Green).
-- If any test fails, the build fails, and the developer is notified to review the logs and apply fixes.
-
----
-
-## How to Run the Project (Step-by-Step)
-
-Follow these steps exactly to get your project running.
-
-### **1. Prerequisites**
-Ensure you have the following installed on your system:
-- Node.js (Latest LTS version)
-- Git
-- MongoDB Community Server
-- MongoDB Compass (Graphical Interface for MongoDB)
-
-### **2. Clone the Repository**
-
-Open your terminal and run:
+**Terminal 2: Frontend App**
 ```bash
-# Create a fresh folder for the project (Optional)
-mkdir -p "ZeroVault-Projects"
-cd "ZeroVault-Projects"
-
-# Clone the repository
-git clone https://github.com/SricharanAsr/Zero-Vault---Sprint-1.git
-
-# Navigate into the cloned repository
-cd Zero-Vault---Sprint-1
+cd zero-vault-sprint-1/zero-vault-sprint-1
+npm run dev
 ```
-
-### **3. Start the Backend (Server)**
-1.  **Navigate to the backend folder:**
-    ```bash
-    cd backend/zero-knowledge
-    ```
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-3.  **Setup Environment Variables:**
-    Ensure you have a .env file in `backend/zero-knowledge/` with the following:
-    ```env
-    MONGO_URI=mongodb://localhost:27017/zero-knowledge
-    JWT_SECRET=super-secret-key-change-this-in-production
-    ```
-4.  **Launch the Server:**
-    ```bash
-    npm start
-    ```
-    *Keep this terminal window open.*
-
-### **4. Start the Frontend (App)**
-1.  **Open a second terminal window.**
-2.  **Navigate to the project root:**
-    If you are in `ZeroVault-Projects`, run:
-    ```bash
-    cd Zero-Vault---Sprint-1
-    ```
-3.  **Go to the frontend folder:**
-    ```bash
-    # Note: Double check the directory name if it varies
-    cd zero-vault-sprint-1/zero-vault-sprint-1
-    ```
-4.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-5.  **Start the development server:**
-    ```bash
-    npm run dev
-    ```
-6.  **Open in Your Browser:** http://localhost:5173
-
-### **5. Verify Data in MongoDB Compass**
-1.  Open MongoDB Compass and click Connect.
-2.  In the Zero-Vault app, create a new account or save an entry.
-3.  In Compass, refresh the list to see the zero-knowledge database.
+Navigate to `http://localhost:5173` to access your vault.
 
 ---
 
-## How to Update your GitHub Repository
-1. Stage changes: `git add .`
-2. Commit: `git commit -m "Your message here"`
-3. Push: `git push origin main`
+## 5. Running Tests
+
+### Step-by-Step Test Suite Running
+1. **Ensure Backend is running** (as shown in the Usage section).
+2. **Execute Unit Tests** (in frontend directory):
+   ```bash
+   npm run test
+   ```
+3. **Execute E2E Tests** (in frontend directory):
+   ```bash
+   npm run test:e2e
+   ```
+4. **Generate Report**:
+   ```bash
+   npx playwright show-report
+   ```
+
+### Quality Assurance Modules
+- **Functional (US 2)**: Validates Registration, Login, and CRUD operations.
+- **Performance (US 6)**: Stress tests rendering with 10,000+ vault entries.
+- **Accessibility (US 7)**: WCAG 2.1 AA audits via Axe-core.
 
 ---
 
-*Sprint 1 - Foundation Complete | Sprint 2 - Advanced Features Coming Soon*
+## 6. Sprint 2 Plan
+The final development cycle focuses on:
+- **Cryptographic Audit**: Deep validation of KDF and AEAD integrity.
+- **Multi-Device Sync**: Robust conflict resolution for concurrent updates.
+- **Security Penetration**: MITM, XSS, and Replay attack simulation.
+- **Advanced Performance**: 24-hour memory leak monitoring and scaled sync latency.
+
+---
+
+## 7. CI/CD Testing
+Our automated pipeline is defined in `.github/workflows/ci.yml`. It triggers on every push to `main` and performs:
+1. **Linting**: Static code analysis.
+2. **Unit Testing**: Component-level logic validation.
+3. **E2E Integration**: Launches transient backend/frontend to verify critical user paths.
+
+---
+
+## 8. Compatibility
+- **Browsers**: Chrome, Firefox, Edge, Safari (Webkit).
+- **Resolutions**: Optimized for Desktop (1920x1080) and Mobile-responsive views.
+- **OS**: Windows, macOS, Linux.
+
+---
+
+## 9. Project Support
+For support or contributions:
+- **Developer**: Sricharan A
+- **Repository**: [GitHub Issues](https://github.com/SricharanAsr/Zero-Vault---Sprint-1/issues)
+
+---
+
+## License
+Distributed under the **MIT License**. See `LICENSE` for more information.
+
+---
+*Sprint 1 - Foundation Complete | Sprint 2 - Advanced Security in Progress*
