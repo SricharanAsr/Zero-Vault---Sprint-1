@@ -4,36 +4,46 @@ const connectDB = require("./config/db.config");
 
 const authRoutes = require("./routes/auth.routes");
 const vaultRoutes = require("./routes/vault.routes");
+const deviceRoutes = require("./routes/device.routes");
 const errorHandler = require("./middleware/error.middleware");
 
+const rateLimit = require("express-rate-limit");
+
 const app = express();
+
+/* -------------------- RATE LIMITING -------------------- */
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: { error: "Too many requests, please try again later." }
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20, // stricter limit for auth routes
+  message: { error: "Too many login/register attempts, please try again later." }
+});
 
 /* -------------------- MIDDLEWARES -------------------- */
 app.use(cors());
 app.use(express.json()); // REQUIRED for req.body
+app.use(globalLimiter);
 
 /* -------------------- HEALTH CHECK -------------------- */
 app.get("/ping", (req, res) => {
-  res.json({ message: "Backend is running" });
+  res.json({ message: "Backend is running", version: "v1" });
 });
 
 /* -------------------- ROUTES -------------------- */
-app.use("/auth", authRoutes);
-app.use("/vault", vaultRoutes);
+const apiPrefix = "/api/v1";
+app.use(`${apiPrefix}/auth`, authLimiter, authRoutes);
+app.use(`${apiPrefix}/vault`, vaultRoutes);
+app.use(`${apiPrefix}/devices`, deviceRoutes);
 
 /* -------------------- ERROR HANDLER (LAST) -------------------- */
 app.use(errorHandler);
 
-/* -------------------- START SERVER -------------------- */
-// Connect to MongoDB before starting server
-(async () => {
-  try {
-    await connectDB();
+/* -------------------- ERROR HANDLER (LAST) -------------------- */
+app.use(errorHandler);
 
-    app.listen(3000, () => {
-      console.log("Server running on port 3000");
-    });
-  } catch (err) {
-    console.error("Failed to start server:", err);
-  }
-})();
+module.exports = app;

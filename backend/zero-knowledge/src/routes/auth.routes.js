@@ -58,8 +58,17 @@ router.post("/login", async (req, res) => {
     }
 
     console.log(`[AUTH ROUTE] Login attempt for username: ${username}`);
+
+    // Extract device info
+    const deviceInfo = {
+      deviceId: req.body.deviceId || "unknown-id",
+      deviceName: req.body.deviceName || "Web Browser",
+      browser: req.headers["user-agent"],
+      ipAddress: req.ip
+    };
+
     // Zero-knowledge style verification
-    const user = await verifyLogin(username, proof);
+    const user = await verifyLogin(username, proof, deviceInfo);
 
     if (!user) {
       return res.status(401).json({
@@ -69,7 +78,7 @@ router.post("/login", async (req, res) => {
 
     // Successful authentication
     const token = jwt.sign(
-      { username: user.username },
+      { id: user.id, username: user.username },
       process.env.JWT_SECRET || "default_secret",
       { expiresIn: "1h" }
     );

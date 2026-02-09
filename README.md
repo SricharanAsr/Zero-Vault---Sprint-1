@@ -44,6 +44,8 @@ Zero-Vault keeps your data safe through a rigorous cryptographic workflow:
 - **Client-Side Encryption**: AEAD-protected vault storage.
 - **Modern UI/UX**: Responsive glassmorphism interface built with React.
 - **Password Analytics**: Real-time strength meter and security insights.
+- **Multi-Device Management**: Track and revoke active device sessions.
+- **API Versioning & Throttling**: Scalable `/api/v1` architecture with rate limiting.
 - **Auto-Lock**: Configurable inactivity timers for enhanced security.
 - **Keyboard Productivity**: `Ctrl+K` (Search), `Ctrl+N` (New Entry), `Ctrl+L` (Lock).
 
@@ -120,21 +122,22 @@ Navigate to `http://localhost:5173` to access your vault.
 ## 5. Running Tests
 
 ### Step-by-Step Test Suite Running
-1. **Ensure Backend is running** (as shown in the Usage section).
-2. **Execute Unit Tests** (in frontend directory):
+4. **Execute API Tests** (in backend directory):
    ```bash
-   npm run test
+   cd backend/zero-knowledge
+   npm test
    ```
-3. **Execute E2E Tests** (in frontend directory):
+5. **Generate E2E Report**:
    ```bash
-   npm run test:e2e
-   ```
-4. **Generate Report**:
-   ```bash
+   cd ../../zero-vault-sprint-1/zero-vault-sprint-1
    npx playwright show-report
    ```
 
 ### Quality Assurance Modules
+- **Authentication API**: Validates registration, login, and JWT issuance.
+- **Vault API**: Verifies secure storage and retrieval of encrypted data.
+- **Device Management**: Tests multi-device tracking and revocation logic.
+- **Security Infrastructure**: Validates rate limiting (throttling) and API versioning.
 - **Functional (US 2)**: Validates Registration, Login, and CRUD operations.
 - **Performance (US 6)**: Stress tests rendering with 10,000+ vault entries.
 - **Accessibility (US 7)**: WCAG 2.1 AA audits via Axe-core.
