@@ -7,7 +7,7 @@ The purpose of this document is to define the testing strategy for Sprint 1 of t
 
 ### 1.2 Scope
 **In Scope:**
-*   **Frontend (React/Vite):** Unit and Integration testing of components, state management, and routing.
+*   **Frontend (React/Vite):** Integration testing of components, state management, and routing.
 *   **Backend (Node/Express):** API endpoint testing, authentication logic (ZKP/JWT), and database interactions (MongoDB).
 *   **End-to-End (E2E):** Critical user journeys including Registration, Login, and Vault CRUD operations.
 *   **Security:** Verification of Zero-Knowledge Proof (ZKP) implementation and JWT token handling.
@@ -21,15 +21,7 @@ The purpose of this document is to define the testing strategy for Sprint 1 of t
 
 ## 2. Testing Levels
 
-### 2.1 Unit Testing
-*   **Objective:** Verify that individual components and functions work as expected in isolation.
-*   **Tools:** `Vitest` (Frontend), `Jest` (Backend - *Recommended*).
-*   **Focus Areas:**
-    *   **Frontend:** React components (rendering, props, events), Utility functions (formatting, validation).
-    *   **Backend:** Service layer logic (AuthService), Helper functions (ZKP checks).
-*   **Coverage Target:** > 80% line coverage for core business logic.
-
-### 2.2 Integration Testing
+### 2.1 Integration Testing
 *   **Objective:** Verify that different modules or services interact correctly.
 *   **Tools:** `Vitest` (Component integration), `Supertest` (API integration).
 *   **Focus Areas:**
@@ -37,7 +29,7 @@ The purpose of this document is to define the testing strategy for Sprint 1 of t
     *   **Backend-Database:** Mongoose models interacting with MongoDB integration.
     *   **Middleware:** Auth middleware correctly decoding tokens and attaching user data.
 
-### 2.3 End-to-End (E2E) Testing
+### 2.2 End-to-End (E2E) Testing
 *   **Objective:** Validate the complete system flow from the user's perspective.
 *   **Tools:** `Playwright`.
 *   **Critical Scenarios:**
@@ -47,21 +39,21 @@ The purpose of this document is to define the testing strategy for Sprint 1 of t
     4.  **Data Persistence:** Data availability after page reload/re-login.
 *   **Browser Support:** Chromium (primary), Firefox, WebKit.
 
-### 2.4 Security Testing
+### 2.3 Security Testing
 *   **Objective:** Ensure user data is protected and authentication mechanisms are bypass-proof.
 *   **Focus Areas:**
     *   **Zero-Knowledge Proofs:** Verify that the server strictly validates proofs and never stores raw passwords.
     *   **JWT Security:** Check token expiration, signing validity, and secure storage (HttpOnly cookies vs LocalStorage).
     *   **Input Validation:** Prevention of NoSQL Injection and XSS attacks.
 
-### 2.5 Performance Testing
+### 2.4 Performance Testing
 *   **Objective:** Ensure the system handles expected load without degradation.
 *   **Tools:** Custom Scripts / Playwright.
 *   **Metric:** 
     *   Vault rendering time < 3s for 10,000 entries (using virtualization).
     *   API response time < 500ms for standard requests.
 
-### 2.6 Accessibility Testing
+### 2.5 Accessibility Testing
 *   **Objective:** Ensure usability for all users, including those using assistive technologies.
 *   **Tools:** `Axe-core` (integrated with Playwright).
 *   **Standard:** WCAG 2.1 AA.
@@ -70,8 +62,7 @@ The purpose of this document is to define the testing strategy for Sprint 1 of t
 
 | Component | Tool / Technology | Purpose |
 | :--- | :--- | :--- |
-| **Test Runner (Frontend)** | **Vitest** | Unit & Integration testing |
-| **Test Runner (Backend)** | *Jest / Mocha* (To be added) | Backend logic verification |
+| **Test Runner (Frontend)** | **Vitest** | Integration testing |
 | **E2E Framework** | **Playwright** | Browser automation & cross-browser testing |
 | **Linting/Formatting** | **ESLint / Prettier** | Static code analysis |
 | **Accessibility** | **Axe-core** | Accessibility auditing |
@@ -97,7 +88,6 @@ The purpose of this document is to define the testing strategy for Sprint 1 of t
 
 ## 6. Exit Criteria for Sprint 1
 *   All Critical and High severity bugs are closed.
-*   Unit test coverage > 80% for core modules.
 *   All E2E critical path scenarios pass.
 *   CI pipeline confirms a clean build and test run.
 
