@@ -27,7 +27,11 @@ const authLimiter = rateLimit({
 /* -------------------- MIDDLEWARES -------------------- */
 app.use(cors());
 app.use(express.json()); // REQUIRED for req.body
-app.use(globalLimiter);
+
+// Disable rate limiting in CI/Test to prevent false negatives
+if (process.env.NODE_ENV !== "test" && process.env.CI !== "true") {
+  app.use(globalLimiter);
+}
 
 /* -------------------- HEALTH CHECK -------------------- */
 app.get("/ping", (req, res) => {
@@ -36,7 +40,9 @@ app.get("/ping", (req, res) => {
 
 /* -------------------- ROUTES -------------------- */
 const apiPrefix = "/api/v1";
-app.use(`${apiPrefix}/auth`, authLimiter, authRoutes);
+const isTestEnv = process.env.NODE_ENV === "test" || process.env.CI === "true";
+
+app.use(`${apiPrefix}/auth`, isTestEnv ? authRoutes : [authLimiter, authRoutes]);
 app.use(`${apiPrefix}/vault`, vaultRoutes);
 app.use(`${apiPrefix}/devices`, deviceRoutes);
 

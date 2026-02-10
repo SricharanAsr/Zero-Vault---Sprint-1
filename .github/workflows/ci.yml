@@ -17,6 +17,10 @@ jobs:
         ports:
           - 27017:27017
 
+    env:
+      NODE_ENV: test
+      CI: true
+
     steps:
     - uses: actions/checkout@v4
 
@@ -35,13 +39,7 @@ jobs:
       env:
         TEST_MONGO_URI: mongodb://127.0.0.1:27017/zero-knowledge-test
 
-    - name: Create .env for Backend
-      working-directory: ./backend/zero-knowledge
-      run: |
-        echo "MONGO_URI=mongodb://127.0.0.1:27017/zero-knowledge" > .env
-        echo "JWT_SECRET=test-secret" >> .env
-
-    - name: Start Backend
+    - name: Start Backend for E2E
       working-directory: ./backend/zero-knowledge
       run: |
         npm start > backend.log 2>&1 &
@@ -56,12 +54,6 @@ jobs:
       working-directory: ./zero-vault-sprint-1/zero-vault-sprint-1
       run: npx playwright install chromium --with-deps
 
-    - name: Run Lint (Informational only)
-      working-directory: ./zero-vault-sprint-1/zero-vault-sprint-1
-      run: npm run lint || true
-
     - name: Run E2E tests
       working-directory: ./zero-vault-sprint-1/zero-vault-sprint-1
       run: npx playwright test
-      env:
-        CI: true
