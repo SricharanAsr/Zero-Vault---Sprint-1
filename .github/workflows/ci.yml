@@ -29,6 +29,12 @@ jobs:
       working-directory: ./backend/zero-knowledge
       run: npm install
 
+    - name: Run Backend API Tests
+      working-directory: ./backend/zero-knowledge
+      run: npm test
+      env:
+        TEST_MONGO_URI: mongodb://127.0.0.1:27017/zero-knowledge-test
+
     - name: Create .env for Backend
       working-directory: ./backend/zero-knowledge
       run: |

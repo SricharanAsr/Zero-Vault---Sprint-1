@@ -11,7 +11,7 @@ describe("Vault API", () => {
     const testUsername = `vault-test-${Date.now()}@example.com`;
 
     beforeAll(async () => {
-        const MONGODB_URI = "mongodb://localhost:27017/zero-knowledge-test";
+        const MONGODB_URI = process.env.TEST_MONGO_URI || "mongodb://localhost:27017/zero-knowledge-test";
         await mongoose.connect(MONGODB_URI);
 
         // Create test user and token

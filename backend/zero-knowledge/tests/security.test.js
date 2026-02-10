@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 describe("Security & Versioning API", () => {
     beforeAll(async () => {
-        const MONGODB_URI = "mongodb://localhost:27017/zero-knowledge-test";
+        const MONGODB_URI = process.env.TEST_MONGO_URI || "mongodb://localhost:27017/zero-knowledge-test";
         if (mongoose.connection.readyState === 0) {
             await mongoose.connect(MONGODB_URI);
         }
