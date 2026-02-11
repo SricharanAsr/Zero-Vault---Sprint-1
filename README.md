@@ -125,7 +125,7 @@ Zero-Vault uses a split testing architecture for full-stack validation:
 
 | Component | Test Type | Directory | Tool |
 | :--- | :--- | :--- | :--- |
-| **Backend** | API/Unit Tests | `backend/zero-knowledge/tests/` | Jest |
+| **Backend** | Integrated API Tests | `backend/zero-knowledge/tests/` | Jest |
 | **Frontend** | E2E/Playwright | `zero-vault-sprint-1/zero-vault-sprint-1/tests/` | Playwright |
 
 ### Step-by-Step Test Suite Running
