@@ -121,53 +121,64 @@ Navigate to `http://localhost:5173` to access your vault.
 
 ## 5. Running Tests
 
-### Test Directory Overview
-Zero-Vault uses a split testing architecture for full-stack validation:
+Zero-Vault uses **Full-Stack Integrated Testing** to verify the complete application. This ensures that the frontend, backend, and database work together correctly in a real-world environment.
 
-| Component | Test Type | Directory | Tool |
-| :--- | :--- | :--- | :--- |
-| **Backend** | Integrated API Tests | `backend/zero-knowledge/tests/` | Jest |
-| **Frontend** | E2E/Playwright | `zero-vault-sprint-1/zero-vault-sprint-1/tests/` | Playwright |
+### Prerequisites
+Before running tests, ensure both servers are running:
 
-### Step-by-Step Test Suite Running
-
-#### 1. Execute Backend API Tests
-Validate server-side logic, authentication flow, and database models.
+**Terminal 1: Backend Server**
 ```bash
 cd backend/zero-knowledge
-npm test
+echo MONGO_URI=mongodb://localhost:27017/zero-knowledge > .env
+echo JWT_SECRET=mysecretkey >> .env
+npm start
 ```
 
-#### 2. Generate API Test Report (Coverage)
-View detailed coverage summary and generate an HTML report:
+**Terminal 2: Frontend Server**
 ```bash
-cd backend/zero-knowledge
-npm test -- --coverage
+cd zero-vault-sprint-1/zero-vault-sprint-1
+npm run dev
 ```
-The HTML report will be available at `backend/zero-knowledge/coverage/lcov-report/index.html`.
 
-#### 3. Execute Frontend E2E Tests
-Simulate user behavior in the browser to verify full integration.
+### Executing Integrated Tests
+
+**Terminal 3: Run Tests**
 ```bash
 cd zero-vault-sprint-1/zero-vault-sprint-1
 npx playwright test
 ```
 
-#### 4. View E2E Test Reports
-After running E2E tests, you can view the detailed results:
+This executes all test suites (Functional, Accessibility, Performance) in headless mode.
+
+### View Test Reports
+After tests complete, view the interactive HTML report:
 ```bash
-cd zero-vault-sprint-1/zero-vault-sprint-1
 npx playwright show-report
 ```
 
-### Quality Assurance Modules
-- **Authentication API**: Validates registration, login, and JWT issuance.
-- **Vault API**: Verifies secure storage and retrieval of encrypted data.
-- **Device Management**: Tests multi-device tracking and revocation logic.
-- **Security Infrastructure**: Validates rate limiting (throttling) and API versioning.
-- **Functional (US 2)**: Validates Registration, Login, and CRUD operations.
-- **Performance (US 6)**: Stress tests rendering with 10,000+ vault entries.
-- **Accessibility (US 7)**: WCAG 2.1 AA audits via Axe-core.
+### Run Specific Test Suites
+
+- **Functional Flow** (Registration, Login, Vault CRUD):
+  ```bash
+  npx playwright test tests/functional.e2e.ts
+  ```
+
+- **Accessibility Audits** (WCAG 2.1 AA Compliance):
+  ```bash
+  npx playwright test tests/accessibility.e2e.ts
+  ```
+
+- **Performance Stress Tests** (1,000+ vault entries):
+  ```bash
+  npx playwright test tests/performance.e2e.ts
+  ```
+
+### Quality Assurance Coverage
+- **Authentication Flow**: Registration with zero-knowledge proofs, login validation, JWT issuance
+- **Vault Operations**: Create, read, update, delete encrypted entries
+- **Security**: Rate limiting, device management, session handling
+- **Accessibility**: Keyboard navigation, screen reader compatibility, color contrast
+- **Performance**: Large dataset rendering, search latency, memory usage
 
 ---
 
