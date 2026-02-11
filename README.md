@@ -105,7 +105,8 @@ To run the full application locally, follow these steps in separate terminals:
 **Terminal 1: Backend Server**
 ```bash
 cd backend/zero-knowledge
-# Ensure your .env is configured (MONGO_URI, JWT_SECRET)
+echo MONGO_URI=mongodb://localhost:27017/zero-knowledge > .env
+echo JWT_SECRET=mysecretkey >> .env
 npm start
 ```
 
