@@ -121,17 +121,36 @@ Navigate to `http://localhost:5173` to access your vault.
 
 ## 5. Running Tests
 
+### Test Directory Overview
+Zero-Vault uses a split testing architecture for full-stack validation:
+
+| Component | Test Type | Directory | Tool |
+| :--- | :--- | :--- | :--- |
+| **Backend** | API/Unit Tests | `backend/zero-knowledge/tests/` | Jest |
+| **Frontend** | E2E/Playwright | `zero-vault-sprint-1/zero-vault-sprint-1/tests/` | Playwright |
+
 ### Step-by-Step Test Suite Running
-4. **Execute API Tests** (in backend directory):
-   ```bash
-   cd backend/zero-knowledge
-   npm test
-   ```
-5. **Generate E2E Report**:
-   ```bash
-   cd ../../zero-vault-sprint-1/zero-vault-sprint-1
-   npx playwright show-report
-   ```
+
+#### 1. Execute Backend API Tests
+Validate server-side logic, authentication flow, and database models.
+```bash
+cd backend/zero-knowledge
+npm test
+```
+
+#### 2. Execute Frontend E2E Tests
+Simulate user behavior in the browser to verify full integration.
+```bash
+cd zero-vault-sprint-1/zero-vault-sprint-1
+npx playwright test
+```
+
+#### 3. View E2E Test Reports
+After running E2E tests, you can view the detailed results:
+```bash
+cd zero-vault-sprint-1/zero-vault-sprint-1
+npx playwright show-report
+```
 
 ### Quality Assurance Modules
 - **Authentication API**: Validates registration, login, and JWT issuance.
