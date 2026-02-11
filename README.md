@@ -21,10 +21,9 @@ Zero-Vault is a high-security, zero-knowledge password manager designed to prote
     - [Step-by-Step Test Suite Running](#step-by-step-test-suite-running)
     - [Quality Assurance Modules](#quality-assurance-modules)
 6. [Sprint 2 Plan](#sprint-2-plan)
-7. [CI/CD Testing](#cicd-testing)
-8. [Compatibility](#compatibility)
-9. [Project Support](#project-support)
-10. [License](#license)
+7. [Compatibility](#compatibility)
+8. [Project Support](#project-support)
+9. [License](#license)
 
 ---
 
@@ -180,22 +179,14 @@ The final development cycle focuses on:
 
 ---
 
-## 7. CI/CD Testing
-Our automated pipeline is defined in `.github/workflows/ci.yml`. It triggers on every push to `main` and performs:
-1. **Linting**: Static code analysis.
-2. **Unit Testing**: Component-level logic validation.
-3. **E2E Integration**: Launches transient backend/frontend to verify critical user paths.
-
----
-
-## 8. Compatibility
+## 7. Compatibility
 - **Browsers**: Chrome, Firefox, Edge, Safari (Webkit).
 - **Resolutions**: Optimized for Desktop (1920x1080) and Mobile-responsive views.
 - **OS**: Windows, macOS, Linux.
 
 ---
 
-## 9. Project Support
+## 8. Project Support
 For support or contributions:
 - **Developer**: Sricharan A
 - **Repository**: [GitHub Issues](https://github.com/SricharanAsr/Zero-Vault---Sprint-1/issues)
