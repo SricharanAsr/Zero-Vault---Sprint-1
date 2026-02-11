@@ -46,23 +46,18 @@ async function register(username, proof) {
   try {
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      console.log(`[REGISTER SERVICE] User already exists: ${username}`);
-      return null; // User already exists
+      return null;
     }
 
-    console.log(`[REGISTER SERVICE] Creating new user: ${username}`);
     const newUser = await User.create({
       username,
       expectedProof: proof,
     });
-    console.log(`[REGISTER SERVICE] User created successfully: ${username}`);
-
     return { username: newUser.username };
   } catch (error) {
-    console.error("Register Error:", error);
+    console.error("[AUTH SERVICE ERROR]", error);
     throw error;
   }
 }
 
 module.exports = { verifyLogin, register }; // Exporting async functions
-

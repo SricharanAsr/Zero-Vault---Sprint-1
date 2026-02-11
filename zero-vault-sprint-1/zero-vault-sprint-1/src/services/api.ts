@@ -11,7 +11,8 @@ export const authService = {
      * @returns Promise with registration response
      */
     async register(email: string, proof: string) {
-        const response = await fetch(`${API_BASE_URL}/auth/register`, {
+        const url = `${API_BASE_URL}/auth/register`;
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,8 +21,19 @@ export const authService = {
         });
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error || 'Registration failed');
+            let errorMessage = `Registration failed (Status: ${response.status})`;
+            try {
+                // Try JSON first
+                const errorData = await response.clone().json();
+                if (errorData.error) errorMessage = `Registration failed: ${errorData.error}`;
+            } catch (e) {
+                // Not JSON - get text
+                const text = await response.text().catch(() => '');
+                if (text) {
+                    errorMessage = `Registration failed (${response.status}): ${text.substring(0, 100)}`;
+                }
+            }
+            throw new Error(errorMessage);
         }
 
         return response.json();
@@ -44,8 +56,14 @@ export const authService = {
         });
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error || 'Login failed');
+            let errorMessage = `Login failed (${response.status})`;
+            try {
+                const errorData = await response.json();
+                if (errorData.error) errorMessage = `Login failed: ${errorData.error}`;
+            } catch (e) {
+                // Not JSON
+            }
+            throw new Error(errorMessage);
         }
 
         return response.json();
