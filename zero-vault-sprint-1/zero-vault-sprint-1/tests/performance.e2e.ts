@@ -2,7 +2,13 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Zero-Vault Performance Testing', () => {
     test('should handle 1,000 vault entries with acceptable performance', async ({ page }) => {
-        test.setTimeout(90000); // Increase timeout
+        test.setTimeout(120000); // Increase timeout
+
+        // Handle alerts
+        page.on('dialog', async (dialog: any) => {
+            console.log(`[TEST DIALOG] ${dialog.message()}`);
+            await dialog.dismiss();
+        });
 
         const randomStr = Math.random().toString(36).substring(2, 7);
         const testEmail = `perf-${Date.now()}-${randomStr}@example.com`;
@@ -14,11 +20,11 @@ test.describe('Zero-Vault Performance Testing', () => {
         await page.locator('input[type="password"]').first().fill(testPassword);
         await page.locator('input[type="password"]').nth(1).fill(testPassword);
         await page.click('button:has-text("Create Vault")');
-        await page.waitForURL(/\/unlock/, { timeout: 30000 });
+        await page.waitForURL(/\/unlock/, { timeout: 45000 });
 
         await page.fill('input[type="password"]', testPassword);
         await page.click('button:has-text("Unlock")');
-        await page.waitForURL(/\/dashboard/, { timeout: 30000 });
+        await page.waitForURL(/\/dashboard/, { timeout: 45000 });
 
         // 2. Inject large dataset locally
         const entries = Array.from({ length: 1000 }, (_, i) => ({

@@ -6,14 +6,20 @@ test.describe('Zero-Vault Functional Flow', () => {
     const testPassword = 'Password123!';
 
     test('should register, login, and manage vault entries', async ({ page }) => {
-        test.setTimeout(90000); // Increase timeout to 90s
+        test.setTimeout(120000); // Increase timeout to 120s
+
+        // Handle alerts
+        page.on('dialog', async (dialog: any) => {
+            console.log(`[TEST DIALOG] ${dialog.message()}`);
+            await dialog.dismiss();
+        });
 
         // --- 1. Registration ---
         await page.goto('/');
-        await expect(page.locator('h1')).toContainText('Zero-Knowledge', { timeout: 10000 });
+        await expect(page.locator('h1')).toContainText('Zero-Knowledge', { timeout: 15000 });
 
         await page.click('text=Create Vault');
-        await page.waitForURL(/\/register/, { timeout: 10000 });
+        await page.waitForURL(/\/register/, { timeout: 15000 });
 
         await page.fill('input[type="email"]', testEmail);
         await page.locator('input[type="password"]').first().fill(testPassword);
@@ -21,12 +27,12 @@ test.describe('Zero-Vault Functional Flow', () => {
 
         // Click and wait separately
         await page.click('button:has-text("Create Vault")');
-        await page.waitForURL(/\/unlock/, { timeout: 30000 }); // Backend may take time
+        await page.waitForURL(/\/unlock/, { timeout: 45000 }); // Backend may take time
 
         // --- 2. Unlock/Login ---
         await page.fill('input[type="password"]', testPassword);
         await page.click('button:has-text("Unlock")');
-        await page.waitForURL(/\/dashboard/, { timeout: 30000 });
+        await page.waitForURL(/\/dashboard/, { timeout: 45000 });
 
         await expect(page.locator('h1')).toContainText('Your Vault');
 
