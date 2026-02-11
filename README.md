@@ -138,14 +138,22 @@ cd backend/zero-knowledge
 npm test
 ```
 
-#### 2. Execute Frontend E2E Tests
+#### 2. Generate API Test Report (Coverage)
+View detailed coverage summary and generate an HTML report:
+```bash
+cd backend/zero-knowledge
+npm test -- --coverage
+```
+The HTML report will be available at `backend/zero-knowledge/coverage/lcov-report/index.html`.
+
+#### 3. Execute Frontend E2E Tests
 Simulate user behavior in the browser to verify full integration.
 ```bash
 cd zero-vault-sprint-1/zero-vault-sprint-1
 npx playwright test
 ```
 
-#### 3. View E2E Test Reports
+#### 4. View E2E Test Reports
 After running E2E tests, you can view the detailed results:
 ```bash
 cd zero-vault-sprint-1/zero-vault-sprint-1
