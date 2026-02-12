@@ -66,7 +66,7 @@ The purpose of this document is to define the testing strategy for Sprint 1 of t
 | **E2E Framework** | **Playwright** | Browser automation & cross-browser testing |
 | **Linting/Formatting** | **ESLint / Prettier** | Static code analysis |
 | **Accessibility** | **Axe-core** | Accessibility auditing |
-| **CI/CD** | **GitHub Actions** | Automated test execution on push |
+
 
 ## 4. Defect Management
 
@@ -89,7 +89,7 @@ The purpose of this document is to define the testing strategy for Sprint 1 of t
 ## 6. Exit Criteria for Sprint 1
 *   All Critical and High severity bugs are closed.
 *   All E2E critical path scenarios pass.
-*   CI pipeline confirms a clean build and test run.
+
 
 ---
 **Prepared By:** Senior Test Engineer
