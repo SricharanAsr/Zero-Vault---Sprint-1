@@ -4,8 +4,7 @@ This document detail the implementation and results of the four quality assuranc
 
 ## Infrastructure and Automation (US 8)
 
-The testing environment was established using Vitest for unit tests and Playwright for end-to-end (E2E) verification. A CI/CD pipeline was implemented via GitHub Actions to ensure code quality on every contribution.
-
+The testing environment was established using Vitest for unit tests and Playwright for end-to-end (E2E) verification.
 ### Implementation Details:
 - Vitest was configured for fast execution of unit tests within the frontend environment.
 - Playwright was integrated with Chromium for cross-browser functional testing.
@@ -14,7 +13,7 @@ The testing environment was established using Vitest for unit tests and Playwrig
 ### Verification Status:
 - Build Process: Success
 - Unit Test Execution: Success
-- CI/CD Integration: Active and verified on remote repository.
+
 
 ## Functional Testing Results (US 2)
 
