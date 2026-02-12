@@ -57,6 +57,6 @@ The audit confirmed that the primary pages are accessible to assistive technolog
 | Functional Testing | Playwright | Success | Core authentication and CRUD verified |
 | Performance Scale | Stress Script | Success | System remains stable at 10,000 entries |
 | Accessibility Audit | AxeBuilder | Success | Compliance verified; minor labeling improvements logged |
-| CI/CD Automation | GitHub Actions| Success | Automated testing pipeline is active |
+
 
 Documentation and test execution steps have been updated in the project README for maintenance.
