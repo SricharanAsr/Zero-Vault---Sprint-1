@@ -10,7 +10,6 @@ The purpose of this document is to define the testing strategy for Sprint 1 of t
 *   **Frontend (React/Vite):** Integration testing of components, state management, and routing.
 *   **Backend (Node/Express):** API endpoint testing, authentication logic (ZKP/JWT), and database interactions (MongoDB).
 *   **End-to-End (E2E):** Critical user journeys including Registration, Login, and Vault CRUD operations.
-*   **Security:** Verification of Zero-Knowledge Proof (ZKP) implementation and JWT token handling.
 *   **Performance:** Basic load testing for vault entry scalability (up to 10k items).
 *   **Accessibility:** WCAG 2.1 AA compliance checks.
 
@@ -39,21 +38,15 @@ The purpose of this document is to define the testing strategy for Sprint 1 of t
     4.  **Data Persistence:** Data availability after page reload/re-login.
 *   **Browser Support:** Chromium (primary), Firefox, WebKit.
 
-### 2.3 Security Testing
-*   **Objective:** Ensure user data is protected and authentication mechanisms are bypass-proof.
-*   **Focus Areas:**
-    *   **Zero-Knowledge Proofs:** Verify that the server strictly validates proofs and never stores raw passwords.
-    *   **JWT Security:** Check token expiration, signing validity, and secure storage (HttpOnly cookies vs LocalStorage).
-    *   **Input Validation:** Prevention of NoSQL Injection and XSS attacks.
 
-### 2.4 Performance Testing
+### 2.3 Performance Testing
 *   **Objective:** Ensure the system handles expected load without degradation.
 *   **Tools:** Custom Scripts / Playwright.
 *   **Metric:** 
     *   Vault rendering time < 3s for 10,000 entries (using virtualization).
     *   API response time < 500ms for standard requests.
 
-### 2.5 Accessibility Testing
+### 2.4 Accessibility Testing
 *   **Objective:** Ensure usability for all users, including those using assistive technologies.
 *   **Tools:** `Axe-core` (integrated with Playwright).
 *   **Standard:** WCAG 2.1 AA.
@@ -82,7 +75,7 @@ The purpose of this document is to define the testing strategy for Sprint 1 of t
 
 | Risk | Impact | Mitigation Strategy |
 | :--- | :--- | :--- |
-| **ZKP Implementation Errors** | Critical Security Flaw | Extensive unit testing of crypto primitives; Use established libraries where possible. |
+
 | **Data Synchronization Issues** | Data Loss / Inconsistency | Robust integration tests for frontend-backend sync; Chaos testing (simulating network drops). |
 | **Performance with Large Data** | UI Lag / Crash | Implement virtualization (`react-window`); Pagination/Lazy loading for API. |
 
