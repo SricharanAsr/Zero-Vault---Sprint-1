@@ -41,27 +41,29 @@ Zero-Vault keeps your data safe through a rigorous cryptographic workflow:
 ### Features
 - **Zero-Knowledge Architecture**: Total privacy for your master password.
 - **Client-Side Encryption**: AEAD-protected vault storage.
-- **Modern UI/UX**: Responsive glassmorphism interface built with React.
+- **Modern UI/UX**: Responsive glassmorphism interface built with React 19, Vite, and Tailwind CSS.
+- **Component-Driven Design**: Built with isolated, reusable UI components (Buttons, Inputs, Cards).
 - **Password Analytics**: Real-time strength meter and security insights.
 - **Multi-Device Management**: Track and revoke active device sessions.
 - **API Versioning & Throttling**: Scalable `/api/v1` architecture with rate limiting.
 - **Auto-Lock**: Configurable inactivity timers for enhanced security.
-- **Keyboard Productivity**: `Ctrl+K` (Search), `Ctrl+N` (New Entry), `Ctrl+L` (Lock).
+- **Keyboard Productivity**: `Ctrl+L` (Lock), `Ctrl+,` (Settings).
 
 ### Technologies Used
-**Frontend:** React 18, TypeScript, Vite, Framer Motion, Tailwind CSS, Lucide React.  
+**Frontend:** React 19, TypeScript, Vite, Framer Motion, Tailwind CSS, Lucide React, Vitest.  
 **Backend:** Node.js, Express, MongoDB, JWT, Zero-Knowledge Proof Primitives.
 
 ### Project Structure
 ```
 Frontend+Backend/
-├── zero-vault-sprint-1/     # React frontend
-│   ├── src/
-│   │   ├── components/      # UI components
-│   │   ├── pages/           # Views (Dashboard, Unlock, etc.)
-│   │   ├── contexts/        # State Management
-│   │   └── utils/           # Crypto & helper functions
-│   └── tests/               # Playwright E2E suites
+├── zero-vault-sprint-1/     # Root directory
+│   └── zero-vault-sprint-1/ # React frontend
+│       ├── src/
+│       │   ├── components/  # Atomic UI elements (ui/, layout/, seo/)
+│       │   ├── pages/       # Main views (Landing, Dashboard, etc.)
+│       │   ├── utils/       # Logger, ErrorHandler, Formatters, Crypto
+│       │   └── contexts/    # Shared state management
+│       └── tests/           # Playwright & Vitest unit tests
 └── backend/
     └── zero-knowledge/      # Express API & ZK Logic
 ```
@@ -121,7 +123,7 @@ Navigate to `http://localhost:5173` to access your vault.
 
 ## 5. Running Tests
 
-Zero-Vault uses **Full-Stack Integrated Testing** to verify the complete application. This ensures that the frontend, backend, and database work together correctly in a real-world environment.
+Zero-Vault uses **Full-Stack Integrated Testing** to verify the complete application.
 
 ### Prerequisites
 Before running tests, ensure both servers are running:
@@ -129,8 +131,6 @@ Before running tests, ensure both servers are running:
 **Terminal 1: Backend Server**
 ```bash
 cd backend/zero-knowledge
-echo MONGO_URI=mongodb://localhost:27017/zero-knowledge > .env
-echo JWT_SECRET=mysecretkey >> .env
 npm start
 ```
 
@@ -140,45 +140,19 @@ cd zero-vault-sprint-1/zero-vault-sprint-1
 npm run dev
 ```
 
-### Executing Integrated Tests
+### Executing Tests
 
-**Terminal 3: Run Tests**
+**Terminal 3: Run Vitest (Unit Tests)**
+```bash
+cd zero-vault-sprint-1/zero-vault-sprint-1
+npm test
+```
+
+**Terminal 4: Run Playwright (E2E Tests)**
 ```bash
 cd zero-vault-sprint-1/zero-vault-sprint-1
 npx playwright test
 ```
-
-This executes all test suites (Functional, Accessibility, Performance) in headless mode.
-
-### View Test Reports
-After tests complete, view the interactive HTML report:
-```bash
-npx playwright show-report
-```
-
-### Run Specific Test Suites
-
-- **Functional Flow** (Registration, Login, Vault CRUD):
-  ```bash
-  npx playwright test tests/functional.e2e.ts
-  ```
-
-- **Accessibility Audits** (WCAG 2.1 AA Compliance):
-  ```bash
-  npx playwright test tests/accessibility.e2e.ts
-  ```
-
-- **Performance Stress Tests** (1,000+ vault entries):
-  ```bash
-  npx playwright test tests/performance.e2e.ts
-  ```
-
-### Quality Assurance Coverage
-- **Authentication Flow**: Registration with zero-knowledge proofs, login validation, JWT issuance
-- **Vault Operations**: Create, read, update, delete encrypted entries
-- **Security**: Rate limiting, device management, session handling
-- **Accessibility**: Keyboard navigation, screen reader compatibility, color contrast
-- **Performance**: Large dataset rendering, search latency, memory usage
 
 ---
 

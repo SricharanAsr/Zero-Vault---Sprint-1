@@ -10,7 +10,17 @@ test-results/
 
 # Production
 dist/
+dist-ssr/
 build/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # Environment Variables
 .env
@@ -18,19 +28,25 @@ build/
 .env.development.local
 .env.test.local
 .env.production.local
+*.local
 
 # Databases and Zips
 *.sqlite
 *.sqlite-journal
 *.zip
-*.log
 
-# Editor/OS Files
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
 Thumbs.db
-.vscode/
-.idea/
 *.swp
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 *.bak
 
 # Nested Git
