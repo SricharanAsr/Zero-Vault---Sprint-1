@@ -12,7 +12,12 @@ import StealthOverlay from './components/StealthOverlay';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ToastProvider } from './contexts/ToastContext';
 import { AutoLockProvider } from './contexts/AutoLockContext';
+// Layout components
+import { AppLayout } from './components/layout/AppLayout';
 import './index.css';
+
+// Re-export layout for convenience
+export { AppLayout };
 
 function PageTransition({ children }: { children: React.ReactNode }) {
   return (
