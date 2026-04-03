@@ -1,12 +1,15 @@
 import { useLocation } from 'wouter';
 import { Shield, ArrowRight, Lock, Eye } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { SEO } from '../components/seo/SEO';
+import { Button } from '../components/ui/Button';
 
 export default function Landing() {
     const [, setLocation] = useLocation();
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-background p-4 relative overflow-hidden">
+            <SEO title="Home" description="Zero-Vault — your zero-knowledge password vault. Encrypted locally, only you hold the key." />
             {/* Animated Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute w-96 h-96 bg-primary/10 rounded-full blur-3xl -top-20 -left-20 animate-pulse"></div>
@@ -69,20 +72,24 @@ export default function Landing() {
                     transition={{ delay: 0.8 }}
                     className="flex flex-col sm:flex-row gap-4 justify-center"
                 >
-                    <button
+                    <Button
+                        id="cta-create-vault"
+                        size="lg"
+                        variant="primary"
                         onClick={() => setLocation('/register')}
-                        className="group glass-panel px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-xl hover:shadow-primary/50"
                     >
                         Create Vault
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </button>
+                        <ArrowRight className="w-5 h-5" />
+                    </Button>
 
-                    <button
+                    <Button
+                        id="cta-unlock-vault"
+                        size="lg"
+                        variant="secondary"
                         onClick={() => setLocation('/unlock')}
-                        className="glass-panel px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white/10 transition-all duration-300"
                     >
                         Unlock Existing Vault
-                    </button>
+                    </Button>
                 </motion.div>
 
                 {/* Trust Badge */}
