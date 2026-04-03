@@ -1,7 +1,14 @@
 {
   "name": "zero-vault",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A highly secure and intuitive password vault sprint implementation.",
+  "author": "Sricharan",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SricharanAsr/Zero-Vault---Sprint-1.git"
+  },
+  "keywords": ["password-manager", "vault", "security", "react", "typescript"],
   "type": "module",
   "scripts": {
     "dev": "vite",
