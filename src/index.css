@@ -17,6 +17,21 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* === Design Tokens === */
+  --color-bg:          hsl(224, 71%, 4%);
+  --color-surface:     hsl(224, 40%, 8%);
+  --color-border:      hsl(224, 20%, 18%);
+  --color-text:        hsl(210, 40%, 98%);
+  --color-text-muted:  hsl(215, 20%, 55%);
+  --color-primary:     hsl(263, 70%, 60%);
+  --color-primary-dim: hsl(263, 70%, 60%, 0.15);
+  --color-danger:      hsl(0, 70%, 55%);
+  --color-success:     hsl(142, 70%, 45%);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --shadow-card: 0 4px 24px rgb(0 0 0 / 0.4);
 }
 
 body {
