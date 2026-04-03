@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useLocation } from 'wouter';
 import { Shield, Eye, EyeOff, ArrowRight, Check, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { SEO } from '../components/seo/SEO';
+import { Input } from '../components/ui/Input';
+import { Button } from '../components/ui/Button';
 
 export default function Register() {
     const [, setLocation] = useLocation();
@@ -49,6 +52,7 @@ export default function Register() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-background p-4">
+            <SEO title="Create Vault" description="Set up your secure Zero-Vault password manager." />
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -69,17 +73,15 @@ export default function Register() {
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Email */}
-                        <div>
-                            <label className="block text-sm font-medium mb-2">Email</label>
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="w-full px-4 py-3 bg-secondary/30 border border-white/10 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all"
-                                placeholder="your@email.com"
-                                required
-                            />
-                        </div>
+                        <Input
+                            id="register-email"
+                            label="Email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="your@email.com"
+                            required
+                        />
 
                         {/* Master Password */}
                         <div>
@@ -162,14 +164,17 @@ export default function Register() {
                         </div>
 
                         {/* Submit */}
-                        <button
+                        <Button
+                            id="register-submit"
                             type="submit"
+                            size="lg"
+                            variant="primary"
                             disabled={strength.score < 3 || !passwordsMatch}
-                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
+                            className="w-full"
                         >
                             Create Vault
-                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </button>
+                            <ArrowRight className="w-5 h-5" />
+                        </Button>
                     </form>
 
                     <p className="text-center text-sm text-muted-foreground mt-6">
